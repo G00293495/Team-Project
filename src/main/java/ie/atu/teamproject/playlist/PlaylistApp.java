@@ -20,6 +20,8 @@ public class PlaylistApp {
             }
             else {
                 System.out.println("Song/Artist Can't be found");
+
+
             }
         //}
     }
