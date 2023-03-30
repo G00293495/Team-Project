@@ -5,7 +5,7 @@ public class Artist extends Playlist {
 
     public Artist(int age) {
         super();
-        this.age = age;
+        age = 0;
     }
 
 }

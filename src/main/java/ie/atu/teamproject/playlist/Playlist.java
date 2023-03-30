@@ -1,9 +1,9 @@
 package ie.atu.teamproject.playlist;
 
 public class Playlist implements Playlistable{
-    private String name;    //counts as song name & artist name
+    private String name;    //counts as artist name
     private String songName;
-    private double streams; //counts as monthly listeners
+    private double streams; //counts as streams
 
     public Playlist(){
         super();
