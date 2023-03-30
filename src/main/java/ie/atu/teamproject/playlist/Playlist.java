@@ -1,30 +1,14 @@
 package ie.atu.teamproject.playlist;
 
 public class Playlist implements Playlistable{
-    private String name;    //counts as song name & artist name
-    private String songName;
+    private String songName;    //counts as song name & artist name
+    private String artistName;
     private double streams; //counts as monthly listeners
 
     public Playlist(){
         super();
-        name = "";
         songName = "";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getStreams() {
-        return streams;
-    }
-
-    public void setStreams(double streams) {
-        this.streams = streams;
+        artistName = "";
     }
 
     public String getSongName() {
@@ -35,8 +19,24 @@ public class Playlist implements Playlistable{
         this.songName = songName;
     }
 
+    public double getStreams() {
+        return streams;
+    }
+
+    public void setStreams(double streams) {
+        this.streams = streams;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
     @Override
     public String toString() {
-        return "Name: " + name;
+        return "Name: " + songName;
     }
 }
