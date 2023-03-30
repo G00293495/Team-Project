@@ -10,9 +10,13 @@ public class PlaylistDB {
 
         Playlistable p = null;
 
-        if(songID.equalsIgnoreCase("Kanye"))//he made graduation
+        if(songID.equalsIgnoreCase("The Hills"))//he made graduation //ref off productDB
         {
-
+            Song song = new Song();
+            song.setName("The Hills");
+            song.setGenre("Alternative R&B");
+            song.setStreams(1800000);
+            p = song;
         }
 
         return p;
