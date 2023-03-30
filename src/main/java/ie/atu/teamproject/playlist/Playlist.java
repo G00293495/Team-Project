@@ -1,48 +1,31 @@
 package ie.atu.teamproject.playlist;
 
-import java.util.ArrayList;
-
-public class Playlist implements Playlistable {
+public class Playlist implements Playlistable{
+    private String songName;    //counts as song name & artist name
     private String artistName;
-    private String songNames;
-    private int streams;
+    private double streams; //counts as monthly listeners
 
-    private ArrayList<Artist> artists;
-
-    public Playlist() {
+    public Playlist(){
         super();
+        songName = "";
         artistName = "";
-        songNames = "";
-        streams = 0;
-        artists = new ArrayList<Artist>();
     }
 
-    // add an Artist to the ArrayList
-    public void addArtist(Artist artist) {
-        artists.add(artist);
+    public String getSongName() {
+        return songName;
     }
 
-    // remove an Artist from the ArrayList
-    public boolean removeArtist(String artistName) {
-        for (Artist artist : artists) {
-            if (artist.getArtistName().equalsIgnoreCase(artistName)) {
-                artists.remove(artist);
-                return true;
-            }
-        }
-        return false;
+    public void setSongName(String songName) {
+        this.songName = songName;
     }
 
-    // getter for the ArrayList
-    public ArrayList<Artist> getArtists() {
-        return artists;
+    public double getStreams() {
+        return streams;
     }
 
-    // setter for the ArrayList
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
+    public void setStreams(double streams) {
+        this.streams = streams;
     }
-
 
     public String getArtistName() {
         return artistName;
@@ -52,44 +35,8 @@ public class Playlist implements Playlistable {
         this.artistName = artistName;
     }
 
-    public int getStreams() {
-        return streams;
-    }
-
-    public void setStreams(int streams) {
-        this.streams = streams;
-    }
-
-    public String getSongNames() {
-        return songNames;
-    }
-
-    public void setSongNames(String songNames) {
-        this.songNames = songNames;
-    }
-
-    @Override
-    public String getGenre() {
-        return null;
-    }
-
-    @Override
-    public void setGenre(String genre) {
-
-    }
-
-    @Override
-    public Artist getArtist() {
-        return null;
-    }
-
-    @Override
-    public void setArtist(Artist artist) {
-
-    }
-
     @Override
     public String toString() {
-        return "Song: " + getSongNames() + "\n";
+        return "Name: " + songName;
     }
 }

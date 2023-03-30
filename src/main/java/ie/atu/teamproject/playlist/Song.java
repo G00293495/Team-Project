@@ -17,13 +17,7 @@ public class Song extends Playlist {
 
     @Override
     public String toString() {
-        //return super.toString() + "Genre: " + genre;
-        return "Song Details: " + "\n" +
-                "Artist: " + getArtistName() + "\n" +
-                "Genre: " + getGenre() + "\n" +
-                "Streams: " + getStreams();
+        return super.toString() + " Genre: " + genre;
     }
-
-
 }
 
