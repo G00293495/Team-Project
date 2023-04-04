@@ -23,8 +23,14 @@ public class Playlist implements Playlistable {
     }
 
     // remove an Artist from the ArrayList
-    public void removeArtist(Artist artist) {
-        artists.remove(artist);
+    public boolean removeArtist(String artistName) {
+        for (Artist artist : artists) {
+            if (artist.getArtistName().equalsIgnoreCase(artistName)) {
+                artists.remove(artist);
+                return true;
+            }
+        }
+        return false;
     }
 
     // getter for the ArrayList
