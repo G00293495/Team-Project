@@ -1,16 +1,42 @@
 package ie.atu.teamproject.playlist;
 
+import java.util.ArrayList;
+
 public class Playlist implements Playlistable {
     private String artistName;
     private String songNames;
     private int streams;
+
+    private ArrayList<Artist> artists;
 
     public Playlist() {
         super();
         artistName = "";
         songNames = "";
         streams = 0;
+        artists = new ArrayList<Artist>();
     }
+
+    // add an Artist to the ArrayList
+    public void addArtist(Artist artist) {
+        artists.add(artist);
+    }
+
+    // remove an Artist from the ArrayList
+    public void removeArtist(Artist artist) {
+        artists.remove(artist);
+    }
+
+    // getter for the ArrayList
+    public ArrayList<Artist> getArtists() {
+        return artists;
+    }
+
+    // setter for the ArrayList
+    public void setArtists(ArrayList<Artist> artists) {
+        this.artists = artists;
+    }
+
 
     public String getArtistName() {
         return artistName;
