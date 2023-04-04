@@ -1,42 +1,63 @@
 package ie.atu.teamproject.playlist;
 
-public class Playlist implements Playlistable{
-    private String name;    //counts as artist name
-    private String songName;
-    private double streams; //counts as streams
+public class Playlist implements Playlistable {
+    private String artistName;
+    private String songNames;
+    private int streams;
 
-    public Playlist(){
+    public Playlist() {
         super();
-        name = "";
-        songName = "";
+        artistName = "";
+        songNames = "";
+        streams = 0;
     }
 
-    public String getName() {
-        return name;
+    public String getArtistName() {
+        return artistName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
-    public double getStreams() {
+    public int getStreams() {
         return streams;
     }
 
-    public void setStreams(double streams) {
+    public void setStreams(int streams) {
         this.streams = streams;
     }
 
-    public String getSongName() {
-        return songName;
+    public String getSongNames() {
+        return songNames;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
+    public void setSongNames(String songNames) {
+        this.songNames = songNames;
+    }
+
+    @Override
+    public String getGenre() {
+        return null;
+    }
+
+    @Override
+    public void setGenre(String genre) {
+
+    }
+
+    @Override
+    public Artist getArtist() {
+        return null;
+    }
+
+    @Override
+    public void setArtist(Artist artist) {
+
     }
 
     @Override
     public String toString() {
-        return "Name: " + name;
+        return "Song: " + getSongNames() + "\n";
     }
 }
