@@ -16,7 +16,7 @@ public class PlaylistApp {
 
             Playlistable p = PlaylistDB.getPlaylist(SongID);
             if(p != null) {
-                System.out.println(p.toString());
+                System.out.println(p);
             }
             else {
                 System.out.println("Song/Artist Can't be found");
