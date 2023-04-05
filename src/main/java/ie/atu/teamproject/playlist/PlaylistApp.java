@@ -12,6 +12,7 @@ public class PlaylistApp {
         System.out.println("Welcome to Playlist App!\n");
 
         while (choice.equalsIgnoreCase("y")) {
+
             System.out.println("Playlist App Menu:");
             System.out.println("1. Search for a song or artist");
             System.out.println("2. Add an artist to the playlist");
@@ -22,6 +23,7 @@ public class PlaylistApp {
             scanner.nextLine();
 
             switch (option) {
+
                 case 1:
                     System.out.print("\nEnter the name of a song or artist: ");
                     String songOrArtist = scanner.nextLine();
@@ -60,6 +62,7 @@ public class PlaylistApp {
                 default:
                     System.out.println("\nInvalid option selected. Please choose 1-3");
                     break;
+
             }
 
             System.out.print("\nDo you want to continue? (y/n): ");
@@ -67,5 +70,6 @@ public class PlaylistApp {
         }
 
         System.out.println("\nGoodbye!");
+
     }
 }
