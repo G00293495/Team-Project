@@ -65,7 +65,6 @@ public class PlaylistApp {
             System.out.print("\nDo you want to continue? (y/n): ");
             choice = scanner.nextLine();
         }
-
         System.out.println("\nGoodbye!");
     }
 }
