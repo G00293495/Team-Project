@@ -23,6 +23,16 @@ public class PlaylistDB {
 
             p = artist;
         }
+        else if (songID.equalsIgnoreCase("Enter Sandman"))
+        {
+            Song song = new Song();
+            song.setSongNames("Enter Sandman");
+            song.setArtistName("Metallica");
+            song.setGenre("Heavy Metal");
+            song.setStreams(1600000000);
+
+            p = song;
+        }
 
         return p;
     }
