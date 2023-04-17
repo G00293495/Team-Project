@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class PlaylistApp {
     private static Playlist playlist = new Playlist();
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         String choice = "y";
 
