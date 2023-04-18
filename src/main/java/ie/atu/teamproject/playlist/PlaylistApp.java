@@ -1,10 +1,22 @@
 package ie.atu.teamproject.playlist;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class PlaylistApp {
     private static Playlist playlist = new Playlist();
     public static void main(String[] args) {
+        try
+        {
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Connection Failed\n");
+        }
+
         Scanner scanner = new Scanner(System.in);
         String choice = "y";
 
