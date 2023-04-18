@@ -6,7 +6,6 @@ public class Playlist implements Playlistable {
     private String artistName;
     private String songNames;
     private int streams;
-
     private ArrayList<Artist> artists;
 
     public Playlist() {
@@ -68,27 +67,22 @@ public class Playlist implements Playlistable {
         this.songNames = songNames;
     }
 
-    @Override
     public String getGenre() {
         return null;
     }
 
-    @Override
     public void setGenre(String genre) {
 
     }
 
-    @Override
     public Artist getArtist() {
         return null;
     }
 
-    @Override
     public void setArtist(Artist artist) {
 
     }
 
-    @Override
     public String toString() {
         return "Song: " + getSongNames() + "\n";
     }
