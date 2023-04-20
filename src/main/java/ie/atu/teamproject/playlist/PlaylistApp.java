@@ -42,17 +42,29 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
-                        ResultSet rs = stmt.executeQuery(sql); //executes SELECT in sql
-                        if (rs.next()){ //check if artist is in database
-                            String artistName = rs.getString("name"); //searches name column
+
+                        String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
+                        ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
+                        if (artistRS.next()){ //check if artist is in database
+                            String artistName = artistRS.getString("name"); //searches name column
                             Artist artist = new Artist();
                             artist.setArtistName(artistName);
                             Playlistable p = artist;
                             System.out.println("Artist " + artistName);
 
-                            //Print Top 5 Songs from artist
-                            System.out.println("Top 5 Songs: ");
+                            //Print the top 5 Songs from artist based on spotify stats
+                            System.out.println("Top 5 Songs");
+                            //feel free to edit this, im unsure
+                            String songsSQL = "SELECT * FROM Song WHERE Album = ''"; //album is a placeholder for songName
+                            ResultSet songsRS = stmt.executeQuery(songsSQL);
+
+                            //prompt user about artist info
+                            System.out.print("\nDo you want to learn more about the artist? (y/n): ");
+                            String userChoice = scanner.nextLine();
+                            if (userChoice.equalsIgnoreCase("y"))
+                            {
+                                System.out.println(p);
+                            }
 
                         }else{
                             System.out.println("Song/Artist not found in the database");
