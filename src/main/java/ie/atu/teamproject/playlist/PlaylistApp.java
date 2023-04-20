@@ -37,17 +37,23 @@ public class PlaylistApp {
                 case 1:
                     System.out.print("\nEnter the name of a song or artist: ");
                     String songOrArtist = scanner.nextLine();
+
+                    //Artist Search
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "SELECT * FROM Seantemplate where name = '" + songOrArtist + "'"; // Checks database for artist inputted
+                        String sql = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
                         ResultSet rs = stmt.executeQuery(sql); //executes SELECT in sql
                         if (rs.next()){ //check if artist is in database
                             String artistName = rs.getString("name"); //searches name column
                             Artist artist = new Artist();
                             artist.setArtistName(artistName);
                             Playlistable p = artist;
-                            System.out.println(p);
+                            System.out.println("Artist " + artistName);
+
+                            //Print Top 5 Songs from artist
+                            System.out.println("Top 5 Songs: ");
+
                         }else{
                             System.out.println("Song/Artist not found in the database");
                         }
@@ -68,7 +74,7 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "INSERT INTO Seantemplate(name) VALUES (?)";
+                        String sql = "INSERT INTO Artist(Name) VALUES (?)";
                         PreparedStatement pstmt = conn.prepareStatement(sql);
                         pstmt.setString(1, artistName);
                         int rowsAffected = pstmt.executeUpdate();
@@ -91,7 +97,7 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "DELETE FROM Seantemplate WHERE name = '"+ artistToRemove + "'";
+                        String sql = "DELETE FROM Artist WHERE Name = '"+ artistToRemove + "'";
                         int rowsAffected = stmt.executeUpdate(sql);
                         if (rowsAffected == 1) {
                             boolean removed = playlist.removeArtist(artistToRemove);
