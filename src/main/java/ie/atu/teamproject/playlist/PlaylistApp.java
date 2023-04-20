@@ -40,10 +40,10 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "SELECT * FROM Artist where name = '" + songOrArtist + "'";
-                        ResultSet rs = stmt.executeQuery(sql);
-                        if (rs.next()){
-                            String artistName = rs.getString("name");
+                        String sql = "SELECT * FROM Artist where name = '" + songOrArtist + "'"; // Checks database for artist inputted
+                        ResultSet rs = stmt.executeQuery(sql); //executes SELECT in sql
+                        if (rs.next()){ //check if artist is in database
+                            String artistName = rs.getString("name"); //searches name column
                             Artist artist = new Artist();
                             artist.setArtistName(artistName);
                             Playlistable p = artist;
@@ -68,6 +68,17 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
+                        String sql = "INSERT INTO Seantemplate(name) VALUES (?)";
+                        PreparedStatement pstmt = conn.prepareStatement(sql);
+                        pstmt.setString(1, artistName);
+                        int rowsAffected = pstmt.executeUpdate();
+
+                        if(rowsAffected == 1) {     //check if rows affected
+                            playlist.addArtist(newArtist);  //if rows affected, adds the artist to database
+                            System.out.println("\n " + artistName + " added to database successfully");
+                        }else{
+                            System.out.println("\n Error: Failed to add " + artistName + "to the database");
+                        }
                     }catch (Exception e){
                         System.out.println("\nError");
                     }
