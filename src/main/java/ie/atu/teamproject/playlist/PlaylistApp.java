@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class PlaylistApp {
     private static Playlist playlist = new Playlist();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         try
         {
             Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
@@ -85,6 +85,11 @@ public class PlaylistApp {
                     //Add feature
                 case 2:
                     //prompt user for artist name, real name & age.
+                    PlaylistDB playlistDB = new PlaylistDB();
+                    boolean isAdded = playlistDB.addArtist();
+
+                    //code to method above where it originally was, remove later
+                    /*
                     System.out.print("\nEnter the name of the artist you want to add: ");
                     String artistName = scanner.nextLine();
                     System.out.print("Enter the real name of the artist: ");
@@ -121,6 +126,7 @@ public class PlaylistApp {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
                     }
+                    */
                     break;
 
                     //Remove feature

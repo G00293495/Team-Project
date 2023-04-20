@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class PlaylistDB {
     //methods will be done here e.g. add, remove, search will be done here
     public boolean addArtist() throws SQLException {
+
         Scanner scanner = new Scanner(System.in);
         //prompt user for artist name, real name & age.
         System.out.print("\nEnter the name of the artist you want to add: ");
@@ -17,6 +18,8 @@ public class PlaylistDB {
         String realName = scanner.nextLine();
         System.out.print("Enter the age of the artist: ");
         int age = Integer.parseInt(scanner.nextLine());
+
+        boolean isAdded = false;
 
         try
         {
@@ -33,8 +36,14 @@ public class PlaylistDB {
             //execute prepared statement
             int rowsAffected = pstmt.executeUpdate();
 
+            if(rowsAffected == 1) {     //check if rows affected
+                System.out.println("\n " + artistName + " added to database successfully");
+            }else{
+                System.out.println("\n Error: Failed to add " + artistName + "to the database");
+            }
 
-        }catch (Exception e){
+        }catch (Exception e)
+        {
             System.out.println("\nError " + e.getMessage());
             e.printStackTrace();
         }
