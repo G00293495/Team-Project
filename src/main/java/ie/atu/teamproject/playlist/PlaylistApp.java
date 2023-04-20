@@ -49,26 +49,13 @@ public class PlaylistApp {
 
                 case 2:
                     System.out.print("\nEnter the name of the artist you want to add: ");
-                    String artistName = scanner.nextLine();
 
-                    Artist newArtist = new Artist();
-                    newArtist.setArtistName(artistName);
-                    playlist.addArtist(newArtist);
-
-                    System.out.println("\n" + artistName + " added to the playlist");
-                    break;
+                    break;  //template
 
                 case 3:
                     System.out.print("\nEnter the name of the artist you want to remove: ");
-                    String artistToRemove = scanner.nextLine();
 
-                    boolean removed = playlist.removeArtist(artistToRemove);
-                    if (removed) {
-                        System.out.println("\n" + artistToRemove + " removed from the playlist");
-                    } else {
-                        System.out.println("\n" + artistToRemove + " not found in the playlist");
-                    }
-                    break;
+                    break; //template
 
                 default:
                     System.out.println("\nInvalid option selected. Please choose 1-3");
