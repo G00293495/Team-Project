@@ -40,7 +40,7 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "SELECT * FROM Artist where name = '" + songOrArtist + "'"; // Checks database for artist inputted
+                        String sql = "SELECT * FROM Seantemplate where name = '" + songOrArtist + "'"; // Checks database for artist inputted
                         ResultSet rs = stmt.executeQuery(sql); //executes SELECT in sql
                         if (rs.next()){ //check if artist is in database
                             String artistName = rs.getString("name"); //searches name column
@@ -86,8 +86,27 @@ public class PlaylistApp {
 
                 case 3:
                     System.out.print("\nEnter the name of the artist you want to remove: ");
+                    String artistToRemove = scanner.nextLine();
 
-                    break; //template
+                    try {
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+                        Statement stmt = conn.createStatement();
+                        String sql = "DELETE FROM Seantemplate WHERE name = '"+ artistToRemove + "'";
+                        int rowsAffected = stmt.executeUpdate(sql);
+                        if (rowsAffected == 1) {
+                            boolean removed = playlist.removeArtist(artistToRemove);
+                            if (removed) {
+                                System.out.println("\n" + artistToRemove + " removed successfully from database");
+                            } else {
+                                System.out.println("Failed to remove " + artistToRemove + " from database");
+                            }
+                        } else{
+                            System.out.println("\nFailed to remove " + artistToRemove + " from the database");
+                        }
+                    }catch (SQLException e){
+                        System.out.println("\nError");
+                    }
+                    break;
 
                 default:
                     System.out.println("\nInvalid option selected. Please choose 1-3");
