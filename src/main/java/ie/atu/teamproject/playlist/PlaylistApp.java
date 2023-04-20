@@ -34,6 +34,7 @@ public class PlaylistApp {
 
             switch (option) {
 
+                //Search Feature
                 case 1:
                     System.out.print("\nEnter the name of a song or artist: ");
                     String songOrArtist = scanner.nextLine();
@@ -71,6 +72,7 @@ public class PlaylistApp {
                                 System.out.println(p);
                             }
 
+
                         }else{
                             System.out.println("Song/Artist not found in the database");
                         }
@@ -80,6 +82,7 @@ public class PlaylistApp {
                     }
                     break;
 
+                    //Add feature
                 case 2:
                     //prompt user for artist name, real name & age.
                     System.out.print("\nEnter the name of the artist you want to add: ");
@@ -120,22 +123,22 @@ public class PlaylistApp {
                     }
                     break;
 
+                    //Remove feature
                 case 3:
                     System.out.print("\nEnter the name of the artist you want to remove: ");
                     String artistToRemove = scanner.nextLine();
 
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
-                        Statement stmt = conn.createStatement();
 
-                        String sql = "DELETE FROM Artist WHERE Name = '"+ artistToRemove + "'";
+                        String sql = "DELETE FROM Artist WHERE Name = ?";
 
                         //create prepared statement with sql this allows us to set params
                         PreparedStatement pstmt = conn.prepareStatement(sql);
                         // Set params values
                         pstmt.setString(1, artistToRemove);
                         //execute prepared statement
-                        int rowsAffected = stmt.executeUpdate(sql);
+                        int rowsAffected = pstmt.executeUpdate();
 
                         if (rowsAffected == 1) {
                             boolean removed = playlist.removeArtist(artistToRemove);
