@@ -46,9 +46,14 @@ public class PlaylistApp {
                         String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
                         ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
                         if (artistRS.next()){ //check if artist is in database
-                            String artistName = artistRS.getString("name"); //searches name column
+                            String artistName = artistRS.getString("Name"); //searches name column
+                            String artistRealName = artistRS.getString("RealName");//Colum is RealName
+                            int artistAge = artistRS.getInt("Age");
+
                             Artist artist = new Artist();
                             artist.setArtistName(artistName);
+                            artist.setRealName(artistRealName);
+                            artist.setAge(artistAge);
                             Playlistable p = artist;
                             System.out.println("Artist " + artistName);
 
@@ -73,7 +78,6 @@ public class PlaylistApp {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
                     }
-
                     break;
 
                 case 2:
@@ -90,14 +94,18 @@ public class PlaylistApp {
 
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
-                        Statement stmt = conn.createStatement();
 
                         String sql = "INSERT INTO Artist(Name, RealName, Age) VALUES (?, ?, ?)";
+
+                        //create prepared statement with sql this allows us to set params
                         PreparedStatement pstmt = conn.prepareStatement(sql);
 
+                        // Set params values
                         pstmt.setString(1, artistName);
                         pstmt.setString(2, realName);
                         pstmt.setInt(3, age);
+
+                        //execute prepared statement
                         int rowsAffected = pstmt.executeUpdate();
 
                         if(rowsAffected == 1) {     //check if rows affected
@@ -119,8 +127,16 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
+
                         String sql = "DELETE FROM Artist WHERE Name = '"+ artistToRemove + "'";
+
+                        //create prepared statement with sql this allows us to set params
+                        PreparedStatement pstmt = conn.prepareStatement(sql);
+                        // Set params values
+                        pstmt.setString(1, artistToRemove);
+                        //execute prepared statement
                         int rowsAffected = stmt.executeUpdate(sql);
+
                         if (rowsAffected == 1) {
                             boolean removed = playlist.removeArtist(artistToRemove);
                             if (removed) {
@@ -140,7 +156,6 @@ public class PlaylistApp {
                 default:
                     System.out.println("\nInvalid option selected. Please choose 1-3");
                     break;
-
             }
 
             System.out.print("\nDo you want to continue? (y/n): ");
