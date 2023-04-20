@@ -77,8 +77,13 @@ public class PlaylistApp {
                     break;
 
                 case 2:
+                    //prompt user for artist name, real name & age.
                     System.out.print("\nEnter the name of the artist you want to add: ");
                     String artistName = scanner.nextLine();
+                    System.out.print("Enter the real name of the artist: ");
+                    String realName = scanner.nextLine();
+                    System.out.print("Enter the age of the artist: ");
+                    int age = Integer.parseInt(scanner.nextLine());
 
                     Artist newArtist = new Artist();
                     newArtist.setArtistName(artistName);
@@ -86,9 +91,13 @@ public class PlaylistApp {
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
                         Statement stmt = conn.createStatement();
-                        String sql = "INSERT INTO Artist(Name) VALUES (?)";
+
+                        String sql = "INSERT INTO Artist(Name, RealName, Age) VALUES (?, ?, ?)";
                         PreparedStatement pstmt = conn.prepareStatement(sql);
+
                         pstmt.setString(1, artistName);
+                        pstmt.setString(2, realName);
+                        pstmt.setInt(3, age);
                         int rowsAffected = pstmt.executeUpdate();
 
                         if(rowsAffected == 1) {     //check if rows affected
