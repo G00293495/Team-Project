@@ -3,6 +3,9 @@ package ie.atu.teamproject.playlist;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 public class PlaylistApp {
@@ -11,6 +14,7 @@ public class PlaylistApp {
         try
         {
             Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+            System.out.println("Database Connection Successful!");
         }
         catch (SQLException e)
         {
@@ -37,14 +41,7 @@ public class PlaylistApp {
 
                 case 1:
                     System.out.print("\nEnter the name of a song or artist: ");
-                    String songOrArtist = scanner.nextLine();
 
-                    Playlistable p = PlaylistDB.getPlaylist(songOrArtist);
-                    if (p != null) {
-                        System.out.println(p);
-                    } else {
-                        System.out.println("Song/Artist not found in the database");
-                    }
                     break;
 
                 case 2:
