@@ -1,11 +1,6 @@
 package ie.atu.teamproject.playlist;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class PlaylistApp {
@@ -41,13 +36,42 @@ public class PlaylistApp {
 
                 case 1:
                     System.out.print("\nEnter the name of a song or artist: ");
+                    String songOrArtist = scanner.nextLine();
+                    try {
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+                        Statement stmt = conn.createStatement();
+                        String sql = "SELECT * FROM Artist where name = '" + songOrArtist + "'";
+                        ResultSet rs = stmt.executeQuery(sql);
+                        if (rs.next()){
+                            String artistName = rs.getString("name");
+                            Artist artist = new Artist();
+                            artist.setArtistName(artistName);
+                            Playlistable p = artist;
+                            System.out.println(p);
+                        }else{
+                            System.out.println("Song/Artist not found in the database");
+                        }
+                    }catch (Exception e){
+                        System.out.println("\nError");
+
+                    }
 
                     break;
 
                 case 2:
                     System.out.print("\nEnter the name of the artist you want to add: ");
+                    String artistName = scanner.nextLine();
 
-                    break;  //template
+                    Artist newArtist = new Artist();
+                    newArtist.setArtistName(artistName);
+
+                    try {
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+                        Statement stmt = conn.createStatement();
+                    }catch (Exception e){
+                        System.out.println("\nError");
+                    }
+                    break;
 
                 case 3:
                     System.out.print("\nEnter the name of the artist you want to remove: ");
