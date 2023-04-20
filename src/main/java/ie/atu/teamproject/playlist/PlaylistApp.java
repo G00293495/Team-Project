@@ -70,8 +70,8 @@ public class PlaylistApp {
                             System.out.println("Song/Artist not found in the database");
                         }
                     }catch (Exception e){
-                        System.out.println("\nError");
-
+                        System.out.println("\nError " + e.getMessage());
+                        e.printStackTrace();
                     }
 
                     break;
@@ -98,7 +98,8 @@ public class PlaylistApp {
                             System.out.println("\n Error: Failed to add " + artistName + "to the database");
                         }
                     }catch (Exception e){
-                        System.out.println("\nError");
+                        System.out.println("\nError " + e.getMessage());
+                        e.printStackTrace();
                     }
                     break;
 
@@ -122,7 +123,8 @@ public class PlaylistApp {
                             System.out.println("\nFailed to remove " + artistToRemove + " from the database");
                         }
                     }catch (SQLException e){
-                        System.out.println("\nError");
+                        System.out.println("\nError " + e.getMessage());
+                        e.printStackTrace();
                     }
                     break;
 
