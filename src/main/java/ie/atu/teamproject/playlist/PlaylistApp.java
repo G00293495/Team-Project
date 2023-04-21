@@ -47,20 +47,18 @@ public class PlaylistApp {
                         ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
                         if (artistRS.next()) { //check if artist is in database
                             String artistName = artistRS.getString("Name"); //searches name column
-                            String artistRealName = artistRS.getString("RealName");//Colum is RealName
-                            int artistAge = artistRS.getInt("Age");
+
 
                             Artist artist = new Artist();
                             artist.setArtistName(artistName);
-                            artist.setRealName(artistRealName);
-                            artist.setAge(artistAge);
                             System.out.println("Artist " + artistName);
 
                             //Print the top 5 Songs from artist based on spotify stats
                             System.out.println("Top 5 Songs");
                             //feel free to edit this, im unsure
-                            String songsSQL = "SELECT * FROM Song WHERE Album = ''"; //album is a placeholder for songName
-                            ResultSet songsRS = stmt.executeQuery(songsSQL);
+                   //commented out as album column was deleted
+                            // String songsSQL = "SELECT * FROM Song WHERE Album = ''"; //album is a placeholder for songName
+                           // ResultSet songsRS = stmt.executeQuery(songsSQL);
 
                             //prompt user about artist info
                             System.out.print("\nDo you want to learn more about the artist? (y/n): ");
@@ -127,8 +125,11 @@ public class PlaylistApp {
                     */
                 //Remove feature
                 case 3 -> {
+                    PlaylistDB playlistDB = new PlaylistDB();
+                    boolean isRemoved = playlistDB.removeArtist();
+                }
                     //earlier I was debugging, removing works but still prompts as it "failed", look at it
-                    System.out.print("\nEnter the name of the artist you want to remove: ");
+                   /* System.out.print("\nEnter the name of the artist you want to remove: ");
                     String artistToRemove = scanner.nextLine();
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
@@ -155,8 +156,8 @@ public class PlaylistApp {
                     } catch (SQLException e) {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
-                    }
-                }
+                    }*/
+
                 default -> System.out.println("\nInvalid option selected. Please choose 1-3");
             }
 
