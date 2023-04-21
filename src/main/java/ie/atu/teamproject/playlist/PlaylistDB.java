@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class PlaylistDB {
     //methods will be done here e.g. add, remove, search will be done here
     public boolean addArtist() throws SQLException {
-
         Scanner scanner = new Scanner(System.in);
         //prompt user for artist name, real name & age.
         System.out.print("\nEnter the name of the artist you want to add: ");
@@ -50,4 +49,18 @@ public class PlaylistDB {
 
         return false;
     }
+
+     public boolean addSong() throws SQLException
+     {
+         Scanner scanner = new Scanner(System.in);
+         //prompt user for song name, genre & streams.
+         System.out.print("\nEnter the name of the artist you want to add: ");
+         String artistName = scanner.nextLine();
+         System.out.print("Enter the real name of the artist: ");
+         String realName = scanner.nextLine();
+         System.out.print("Enter the age of the artist: ");
+         int age = Integer.parseInt(scanner.nextLine());
+
+         return false;
+     }
 }
