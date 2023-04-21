@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class PlaylistApp {
     private static final Playlist playlist = new Playlist();
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         try
         {
             Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
@@ -127,6 +127,7 @@ public class PlaylistApp {
                     */
                 //Remove feature
                 case 3 -> {
+                    //earlier I was debugging, removing works but still prompts as it "failed", look at it
                     System.out.print("\nEnter the name of the artist you want to remove: ");
                     String artistToRemove = scanner.nextLine();
                     try {

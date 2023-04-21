@@ -3,12 +3,12 @@ package ie.atu.teamproject.playlist;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Scanner;
+
 
 public class PlaylistDB {
     //methods will be done here e.g. add, remove, search will be done here
-    public boolean addArtist() throws SQLException {
+    public boolean addArtist() {
         Scanner scanner = new Scanner(System.in);
         //prompt user for artist name, real name & age.
         System.out.print("\nEnter the name of the artist you want to add: ");
@@ -47,20 +47,6 @@ public class PlaylistDB {
             e.printStackTrace();
         }
 
-        return false;
+        return isAdded;
     }
-
-     public boolean addSong() throws SQLException
-     {
-         Scanner scanner = new Scanner(System.in);
-         //prompt user for song name, genre & streams.
-         System.out.print("\nEnter the name of the artist you want to add: ");
-         String artistName = scanner.nextLine();
-         System.out.print("Enter the real name of the artist: ");
-         String realName = scanner.nextLine();
-         System.out.print("Enter the age of the artist: ");
-         int age = Integer.parseInt(scanner.nextLine());
-
-         return false;
-     }
 }
