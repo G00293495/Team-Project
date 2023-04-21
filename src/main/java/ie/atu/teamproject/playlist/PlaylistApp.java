@@ -33,7 +33,6 @@ public class PlaylistApp {
             scanner.nextLine();
 
             switch (option) {
-
                 //Search Feature
                 case 1 -> {
                     System.out.print("\nEnter the name of a song or artist: ");
