@@ -8,8 +8,9 @@ import java.util.Scanner;
 
 public class PlaylistDB {
     //methods will be done here e.g. add, remove, search will be done here
+    Scanner scanner = new Scanner(System.in);
     public boolean addArtist() {
-        Scanner scanner = new Scanner(System.in);
+
         //prompt user for artist name, real name & age.
         System.out.print("\nEnter the name of the artist you want to add: ");
         String artistName = scanner.nextLine();
@@ -48,5 +49,14 @@ public class PlaylistDB {
         }
 
         return isAdded;
+    }
+
+    public boolean removeArtist(){
+        System.out.print("\nEnter the name of the artist you want to remove: ");
+        String artistToRemove = scanner.nextLine();
+
+        boolean isRemoved = false;
+
+        return isRemoved;
     }
 }
