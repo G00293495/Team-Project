@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class PlaylistApp {
-    private static Playlist playlist = new Playlist();
+    private static final Playlist playlist = new Playlist();
     public static void main(String[] args) throws SQLException {
         try
         {
@@ -35,18 +35,18 @@ public class PlaylistApp {
             switch (option) {
 
                 //Search Feature
-                case 1:
+                case 1 -> {
                     System.out.print("\nEnter the name of a song or artist: ");
                     String songOrArtist = scanner.nextLine();
 
                     //Artist Search
                     try {
-                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
                         Statement stmt = conn.createStatement();
 
                         String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
                         ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
-                        if (artistRS.next()){ //check if artist is in database
+                        if (artistRS.next()) { //check if artist is in database
                             String artistName = artistRS.getString("Name"); //searches name column
                             String artistRealName = artistRS.getString("RealName");//Colum is RealName
                             int artistAge = artistRS.getInt("Age");
@@ -55,7 +55,6 @@ public class PlaylistApp {
                             artist.setArtistName(artistName);
                             artist.setRealName(artistRealName);
                             artist.setAge(artistAge);
-                            Playlistable p = artist;
                             System.out.println("Artist " + artistName);
 
                             //Print the top 5 Songs from artist based on spotify stats
@@ -67,28 +66,28 @@ public class PlaylistApp {
                             //prompt user about artist info
                             System.out.print("\nDo you want to learn more about the artist? (y/n): ");
                             String userChoice = scanner.nextLine();
-                            if (userChoice.equalsIgnoreCase("y"))
-                            {
-                                System.out.println(p);
+                            if (userChoice.equalsIgnoreCase("y")) {
+                                System.out.println(artist);
                             }
 
 
-                        }else{
+                        } else {
                             System.out.println("Song/Artist not found in the database");
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
                     }
-                    break;
+                }
 
-                    //Add feature
-                case 2:
+                //Add feature
+                case 2 -> {
                     //prompt user for artist name, real name & age.
                     PlaylistDB playlistDB = new PlaylistDB();
                     boolean isAdded = playlistDB.addArtist();
+                }
 
-                    //code to method above where it originally was, remove later
+                //code to method above where it originally was, remove later
                     /*
                     System.out.print("\nEnter the name of the artist you want to add: ");
                     String artistName = scanner.nextLine();
@@ -127,15 +126,12 @@ public class PlaylistApp {
                         e.printStackTrace();
                     }
                     */
-                    break;
-
-                    //Remove feature
-                case 3:
+                //Remove feature
+                case 3 -> {
                     System.out.print("\nEnter the name of the artist you want to remove: ");
                     String artistToRemove = scanner.nextLine();
-
                     try {
-                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
 
                         String sql = "DELETE FROM Artist WHERE Name = ?";
 
@@ -153,18 +149,15 @@ public class PlaylistApp {
                             } else {
                                 System.out.println("Failed to remove " + artistToRemove + " from database");
                             }
-                        } else{
+                        } else {
                             System.out.println("\nFailed to remove " + artistToRemove + " from the database");
                         }
-                    }catch (SQLException e){
+                    } catch (SQLException e) {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
                     }
-                    break;
-
-                default:
-                    System.out.println("\nInvalid option selected. Please choose 1-3");
-                    break;
+                }
+                default -> System.out.println("\nInvalid option selected. Please choose 1-3");
             }
 
             System.out.print("\nDo you want to continue? (y/n): ");

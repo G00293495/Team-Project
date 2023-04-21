@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="@playlistserver.database.windows.net" uuid="1d0fc1c1-9e63-48be-8321-2b227078c9a1">
+      <driver-ref>azure.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://playlistserver.database.windows.net:1433;encrypt=true;trustServerCertificate=false;loginTimeout=30;</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="AZURE_SQL_DB_SERVER" value="/subscriptions/0c2daaf0-9ac5-42bd-a10a-bd7fc57e09b2/resourceGroups/rs-20230417234645/providers/Microsoft.Sql/servers/playlistserver" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
