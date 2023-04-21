@@ -126,7 +126,7 @@ public class PlaylistApp {
                 //Remove feature
                 case 3 -> {
                     PlaylistDB playlistDB = new PlaylistDB();
-                    boolean isRemoved = playlistDB.addArtist();
+                    boolean isRemoved = playlistDB.removeArtist();
                 }
                     //earlier I was debugging, removing works but still prompts as it "failed", look at it
                    /* System.out.print("\nEnter the name of the artist you want to remove: ");
