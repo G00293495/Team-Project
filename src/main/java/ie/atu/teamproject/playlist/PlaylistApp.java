@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 public class PlaylistApp {
     private static final Playlist playlist = new Playlist();
+    static Connection conn;
+
     public static void main(String[] args) {
         try
         {
-            Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+            conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
             System.out.println("Database Connection Successful!");
         }
         catch (SQLException e)
@@ -32,44 +34,36 @@ public class PlaylistApp {
             int option = scanner.nextInt();
             scanner.nextLine();
 
+            Artist artist = new Artist(conn);
+
             switch (option) {
                 //Search Feature
                 case 1 -> {
-                    System.out.print("\nEnter the name of a song or artist: ");
-                    String songOrArtist = scanner.nextLine();
+                        System.out.print("\nEnter the name of an Artist: ");
+                        String songOrArtist = scanner.nextLine();
 
-                    //Artist Search
-                    try {
-                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
-                        Statement stmt = conn.createStatement();
+                        //Artist Search
+                        try {
+                            //Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
+                            Statement stmt = conn.createStatement();
 
-                        String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
-                        ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
-                        if (artistRS.next()) { //check if artistDetails is in database
-                            String artistName = artistRS.getString("Name"); //searches name column
+                            String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
+                            ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
+                            if (artistRS.next()) { //check if artist is in database
+                                String artistName = artistRS.getString("Name"); //searches name column
 
+                                artist.setArtistName(artistName);
+                                System.out.println("Artist: " + "\n" + artistName);
 
-                            ArtistDetails artistDetails = new ArtistDetails();
-                            artistDetails.setArtistName(artistName);
-                            System.out.println("Artist: " + "\n" + artistName);
-
-                            //Print the top 5 Songs from artistDetails based on spotify stats
-                            System.out.println("Top 5 Songs");
-                            //feel free to edit this, im unsure
-                            //commented out as album column was deleted
-                            // String songsSQL = "SELECT * FROM SongDetails WHERE Album = ''"; //album is a placeholder for songName
-                           // ResultSet songsRS = stmt.executeQuery(songsSQL);
-
-                            //prompt user about artistDetails info
-                            System.out.print("\nDo you want to learn more about the artistDetails? (y/n): ");
-                            String userChoice = scanner.nextLine();
-                            if (userChoice.equalsIgnoreCase("y")) {
-                                System.out.println(artistDetails);
-                            }
-
+                                //prompt user about artist info
+                                System.out.print("\nDo you want to learn more about the artist? (y/n): ");
+                                String userChoice = scanner.nextLine();
+                                if (userChoice.equalsIgnoreCase("y")) {
+                                    System.out.println(artist);
+                                }
 
                         } else {
-                            System.out.println("SongDetails/ArtistDetails not found in the database");
+                            System.out.println("Song/Artist not found in the database");
                         }
                     } catch (Exception e) {
                         System.out.println("\nError " + e.getMessage());
@@ -80,14 +74,19 @@ public class PlaylistApp {
                 //Add feature
                 case 2 -> {
                     //prompt user for artist name, real name & age.
-                    PlaylistMethods playlistMethods = new PlaylistMethods();
-                    boolean isAdded = playlistMethods.addArtist();
+                    //PlaylistMethods playlistMethods = new PlaylistMethods();
+                    //boolean isAdded = playlistMethods.addArtist();
+
+                    System.out.print("\nEnter the name of the artist you want to add: ");
+                    String artistName = scanner.nextLine();
+                    artist.addArtist(artistName);
+                    break;
                 }
 
                 //Remove feature
                 case 3 -> {
                     PlaylistMethods playlistMethods = new PlaylistMethods();
-                    boolean isRemoved = playlistMethods.removeArtist();
+                    //boolean isRemoved = playlistMethods.removeArtist();
                 }
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-3");
