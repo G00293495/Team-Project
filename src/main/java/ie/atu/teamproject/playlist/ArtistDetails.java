@@ -1,6 +1,7 @@
 package ie.atu.teamproject.playlist;
 
 public class ArtistDetails extends Playlist{
+    /*
     private int age;
     private String realName;
 
@@ -38,5 +39,5 @@ public class ArtistDetails extends Playlist{
                 "Artist: " + getArtistName() + "\n" +
                 "Real Name: " + getRealName() + "\n" +
                 "Age: " + getAge();
-    }
+    }*/
 }

@@ -1,23 +1,23 @@
 package ie.atu.teamproject.playlist.Test;
 
-import ie.atu.teamproject.playlist.PlaylistDB;
+import ie.atu.teamproject.playlist.PlaylistMethods;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PlaylistDBTest {
-    private PlaylistDB playlistDB;
+public class PlaylistMethodsTest {
+    private PlaylistMethods playlistMethods;
 
     @Before
     public void setUp() {
-        playlistDB = new PlaylistDB();
+        playlistMethods = new PlaylistMethods();
     }
 
     @Test
     public void testAddArtist() {
-        boolean isAdded = playlistDB.addArtist();
+        boolean isAdded = playlistMethods.addArtist();
         assertEquals(this, isAdded);
     }
 }

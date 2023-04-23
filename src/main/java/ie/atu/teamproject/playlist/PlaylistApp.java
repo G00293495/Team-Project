@@ -38,7 +38,7 @@ public class PlaylistApp {
                     System.out.print("\nEnter the name of a song or artist: ");
                     String songOrArtist = scanner.nextLine();
 
-                    //ArtistDetails Search
+                    //Artist Search
                     try {
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
                         Statement stmt = conn.createStatement();
@@ -80,14 +80,14 @@ public class PlaylistApp {
                 //Add feature
                 case 2 -> {
                     //prompt user for artist name, real name & age.
-                    PlaylistDB playlistDB = new PlaylistDB();
-                    boolean isAdded = playlistDB.addArtist();
+                    PlaylistMethods playlistMethods = new PlaylistMethods();
+                    boolean isAdded = playlistMethods.addArtist();
                 }
 
                 //Remove feature
                 case 3 -> {
-                    PlaylistDB playlistDB = new PlaylistDB();
-                    boolean isRemoved = playlistDB.removeArtist();
+                    PlaylistMethods playlistMethods = new PlaylistMethods();
+                    boolean isRemoved = playlistMethods.removeArtist();
                 }
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-3");

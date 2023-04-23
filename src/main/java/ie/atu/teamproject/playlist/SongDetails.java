@@ -1,6 +1,7 @@
 package ie.atu.teamproject.playlist;
 
 public class SongDetails extends Playlist {
+    /*
     private String genre;
 
     public SongDetails() {
@@ -20,8 +21,6 @@ public class SongDetails extends Playlist {
         //return super.toString() + "Genre: " + genre;
         return "Song Details: " + "\n" +
                 "Genre: " + getGenre() + "\n";
-    }
-
-
+    }*/
 }
 

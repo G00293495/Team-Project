@@ -14,28 +14,11 @@ public class Playlist implements Playlistable {
         artistDetails = new ArrayList<ArtistDetails>();
     }
 
-    // add an ArtistDetails to the ArrayList
-    public void addArtist(ArtistDetails artistDetails) {
-        this.artistDetails.add(artistDetails);
-    }
-
-    // remove an ArtistDetails from the ArrayList
-    public boolean removeArtist(String artistName) {
-        for (ArtistDetails artistDetails : this.artistDetails) {
-            if (artistDetails.getArtistName().equalsIgnoreCase(artistName)) {
-                this.artistDetails.remove(artistDetails);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // getter for the ArrayList
+    // getter setter for the ArrayList
     public ArrayList<ArtistDetails> getArtists() {
         return artistDetails;
     }
 
-    // setter for the ArrayList
     public void setArtists(ArrayList<ArtistDetails> artistDetails) {
         this.artistDetails = artistDetails;
     }
