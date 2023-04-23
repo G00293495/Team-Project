@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 
-public class PlaylistDB {
+public class PlaylistMethods {
     //methods will be done here e.g. add, remove, search will be done here
     Scanner scanner = new Scanner(System.in);
     public boolean addArtist() {

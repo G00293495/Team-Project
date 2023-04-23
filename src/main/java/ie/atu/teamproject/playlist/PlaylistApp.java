@@ -45,31 +45,31 @@ public class PlaylistApp {
 
                         String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
                         ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
-                        if (artistRS.next()) { //check if artist is in database
+                        if (artistRS.next()) { //check if artistDetails is in database
                             String artistName = artistRS.getString("Name"); //searches name column
 
 
-                            Artist artist = new Artist();
-                            artist.setArtistName(artistName);
-                            System.out.println("Artist " + artistName);
+                            ArtistDetails artistDetails = new ArtistDetails();
+                            artistDetails.setArtistName(artistName);
+                            System.out.println("Artist: " + "\n" + artistName);
 
-                            //Print the top 5 Songs from artist based on spotify stats
+                            //Print the top 5 Songs from artistDetails based on spotify stats
                             System.out.println("Top 5 Songs");
                             //feel free to edit this, im unsure
-                   //commented out as album column was deleted
-                            // String songsSQL = "SELECT * FROM Song WHERE Album = ''"; //album is a placeholder for songName
+                            //commented out as album column was deleted
+                            // String songsSQL = "SELECT * FROM SongDetails WHERE Album = ''"; //album is a placeholder for songName
                            // ResultSet songsRS = stmt.executeQuery(songsSQL);
 
-                            //prompt user about artist info
-                            System.out.print("\nDo you want to learn more about the artist? (y/n): ");
+                            //prompt user about artistDetails info
+                            System.out.print("\nDo you want to learn more about the artistDetails? (y/n): ");
                             String userChoice = scanner.nextLine();
                             if (userChoice.equalsIgnoreCase("y")) {
-                                System.out.println(artist);
+                                System.out.println(artistDetails);
                             }
 
 
                         } else {
-                            System.out.println("Song/Artist not found in the database");
+                            System.out.println("SongDetails/ArtistDetails not found in the database");
                         }
                     } catch (Exception e) {
                         System.out.println("\nError " + e.getMessage());
@@ -80,83 +80,15 @@ public class PlaylistApp {
                 //Add feature
                 case 2 -> {
                     //prompt user for artist name, real name & age.
-                    PlaylistDB playlistDB = new PlaylistDB();
-                    boolean isAdded = playlistDB.addArtist();
+                    PlaylistMethods playlistMethods = new PlaylistMethods();
+                    boolean isAdded = playlistMethods.addArtist();
                 }
 
-                //code to method above where it originally was, remove later
-                    /*
-                    System.out.print("\nEnter the name of the artist you want to add: ");
-                    String artistName = scanner.nextLine();
-                    System.out.print("Enter the real name of the artist: ");
-                    String realName = scanner.nextLine();
-                    System.out.print("Enter the age of the artist: ");
-                    int age = Integer.parseInt(scanner.nextLine());
-
-                    Artist newArtist = new Artist();
-                    newArtist.setArtistName(artistName);
-
-                    try {
-                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
-
-                        String sql = "INSERT INTO Artist(Name, RealName, Age) VALUES (?, ?, ?)";
-
-                        //create prepared statement with sql this allows us to set params
-                        PreparedStatement pstmt = conn.prepareStatement(sql);
-
-                        // Set params values
-                        pstmt.setString(1, artistName);
-                        pstmt.setString(2, realName);
-                        pstmt.setInt(3, age);
-
-                        //execute prepared statement
-                        int rowsAffected = pstmt.executeUpdate();
-
-                        if(rowsAffected == 1) {     //check if rows affected
-                            playlist.addArtist(newArtist);  //if rows affected, adds the artist to database
-                            System.out.println("\n " + artistName + " added to database successfully");
-                        }else{
-                            System.out.println("\n Error: Failed to add " + artistName + "to the database");
-                        }
-                    }catch (Exception e){
-                        System.out.println("\nError " + e.getMessage());
-                        e.printStackTrace();
-                    }
-                    */
                 //Remove feature
                 case 3 -> {
-                    PlaylistDB playlistDB = new PlaylistDB();
-                    boolean isRemoved = playlistDB.removeArtist();
+                    PlaylistMethods playlistMethods = new PlaylistMethods();
+                    boolean isRemoved = playlistMethods.removeArtist();
                 }
-                    //earlier I was debugging, removing works but still prompts as it "failed", look at it
-                   /* System.out.print("\nEnter the name of the artist you want to remove: ");
-                    String artistToRemove = scanner.nextLine();
-                    try {
-                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
-
-                        String sql = "DELETE FROM Artist WHERE Name = ?";
-
-                        //create prepared statement with sql this allows us to set params
-                        PreparedStatement pstmt = conn.prepareStatement(sql);
-                        // Set params values
-                        pstmt.setString(1, artistToRemove);
-                        //execute prepared statement
-                        int rowsAffected = pstmt.executeUpdate();
-
-                        if (rowsAffected == 1) {
-                            boolean removed = playlist.removeArtist(artistToRemove);
-                            if (removed) {
-                                System.out.println("\n" + artistToRemove + " removed successfully from database");
-                            } else {
-                                System.out.println("Failed to remove " + artistToRemove + " from database");
-                            }
-                        } else {
-                            System.out.println("\nFailed to remove " + artistToRemove + " from the database");
-                        }
-                    } catch (SQLException e) {
-                        System.out.println("\nError " + e.getMessage());
-                        e.printStackTrace();
-                    }*/
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-3");
             }

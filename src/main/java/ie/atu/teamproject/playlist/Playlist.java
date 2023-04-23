@@ -5,43 +5,12 @@ import java.util.ArrayList;
 public class Playlist implements Playlistable {
     private String artistName;
     private String songNames;
-    private int streams;
-    private ArrayList<Artist> artists;
 
     public Playlist() {
         super();
         artistName = "";
         songNames = "";
-        streams = 0;
-        artists = new ArrayList<Artist>();
     }
-
-    // add an Artist to the ArrayList
-    public void addArtist(Artist artist) {
-        artists.add(artist);
-    }
-
-    // remove an Artist from the ArrayList
-    public boolean removeArtist(String artistName) {
-        for (Artist artist : artists) {
-            if (artist.getArtistName().equalsIgnoreCase(artistName)) {
-                artists.remove(artist);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // getter for the ArrayList
-    public ArrayList<Artist> getArtists() {
-        return artists;
-    }
-
-    // setter for the ArrayList
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
-    }
-
 
     public String getArtistName() {
         return artistName;
@@ -49,14 +18,6 @@ public class Playlist implements Playlistable {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
-    }
-
-    public int getStreams() {
-        return streams;
-    }
-
-    public void setStreams(int streams) {
-        this.streams = streams;
     }
 
     public String getSongNames() {
@@ -67,23 +28,7 @@ public class Playlist implements Playlistable {
         this.songNames = songNames;
     }
 
-    public String getGenre() {
-        return null;
-    }
-
-    public void setGenre(String genre) {
-
-    }
-
-    public Artist getArtist() {
-        return null;
-    }
-
-    public void setArtist(Artist artist) {
-
-    }
-
     public String toString() {
-        return "Song: " + getSongNames() + "\n";
+        return "SongDetails: " + getSongNames() + "\n";
     }
 }
