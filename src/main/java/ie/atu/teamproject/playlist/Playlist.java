@@ -5,27 +5,25 @@ import java.util.ArrayList;
 public class Playlist implements Playlistable {
     private String artistName;
     private String songNames;
-    private int streams;
-    private ArrayList<Artist> artists;
+    private ArrayList<ArtistDetails> artistDetails;
 
     public Playlist() {
         super();
         artistName = "";
         songNames = "";
-        streams = 0;
-        artists = new ArrayList<Artist>();
+        artistDetails = new ArrayList<ArtistDetails>();
     }
 
-    // add an Artist to the ArrayList
-    public void addArtist(Artist artist) {
-        artists.add(artist);
+    // add an ArtistDetails to the ArrayList
+    public void addArtist(ArtistDetails artistDetails) {
+        this.artistDetails.add(artistDetails);
     }
 
-    // remove an Artist from the ArrayList
+    // remove an ArtistDetails from the ArrayList
     public boolean removeArtist(String artistName) {
-        for (Artist artist : artists) {
-            if (artist.getArtistName().equalsIgnoreCase(artistName)) {
-                artists.remove(artist);
+        for (ArtistDetails artistDetails : this.artistDetails) {
+            if (artistDetails.getArtistName().equalsIgnoreCase(artistName)) {
+                this.artistDetails.remove(artistDetails);
                 return true;
             }
         }
@@ -33,15 +31,14 @@ public class Playlist implements Playlistable {
     }
 
     // getter for the ArrayList
-    public ArrayList<Artist> getArtists() {
-        return artists;
+    public ArrayList<ArtistDetails> getArtists() {
+        return artistDetails;
     }
 
     // setter for the ArrayList
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
+    public void setArtists(ArrayList<ArtistDetails> artistDetails) {
+        this.artistDetails = artistDetails;
     }
-
 
     public String getArtistName() {
         return artistName;
@@ -49,14 +46,6 @@ public class Playlist implements Playlistable {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
-    }
-
-    public int getStreams() {
-        return streams;
-    }
-
-    public void setStreams(int streams) {
-        this.streams = streams;
     }
 
     public String getSongNames() {
@@ -67,23 +56,7 @@ public class Playlist implements Playlistable {
         this.songNames = songNames;
     }
 
-    public String getGenre() {
-        return null;
-    }
-
-    public void setGenre(String genre) {
-
-    }
-
-    public Artist getArtist() {
-        return null;
-    }
-
-    public void setArtist(Artist artist) {
-
-    }
-
     public String toString() {
-        return "Song: " + getSongNames() + "\n";
+        return "SongDetails: " + getSongNames() + "\n";
     }
 }
