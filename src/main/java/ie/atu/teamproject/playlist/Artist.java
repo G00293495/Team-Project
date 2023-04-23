@@ -1,17 +1,19 @@
 package ie.atu.teamproject.playlist;
 
-public class ArtistDetails extends Playlist{
+import java.util.ArrayList;
+
+public class Artist extends Playlist{
     /*
     private int age;
     private String realName;
 
-    public ArtistDetails() {
+    public Artist() {
         super();
         realName = "";
         age = 0;
     }
 
-    public ArtistDetails(int age, String realName, String artistName) {
+    public Artist(int age, String realName, String artistName) {
         super();
         this.age = age;
         this.realName = realName;
@@ -40,4 +42,24 @@ public class ArtistDetails extends Playlist{
                 "Real Name: " + getRealName() + "\n" +
                 "Age: " + getAge();
     }*/
+
+    private String artistName;
+    private ArrayList<Song> songs;
+
+    //getter setter
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
+    public ArrayList<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(ArrayList<Song> songs) {
+        this.songs = songs;
+    }
 }
