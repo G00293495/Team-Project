@@ -79,8 +79,8 @@ public class PlaylistApp {
 
                     System.out.print("\nEnter the name of the artist you want to add: ");
                     String artistName = scanner.nextLine();
-                    artist.addArtist(artistName);
-                    break;
+                    artist.setArtistName(artistName);
+                    artist.addMedia();
                 }
 
                 //Remove feature

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-public class Artist {
+public class Artist implements Media{
     private String artistName;
     private ArrayList<Song> songs;
     private Connection conn;
@@ -33,6 +33,11 @@ public class Artist {
 
     //methods
     public void addArtist(String artistName) {
+
+    }
+
+    @Override
+    public void addMedia() {
         try
         {
             //Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
