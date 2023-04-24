@@ -1,50 +1,18 @@
 package ie.atu.teamproject.playlist;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-public class Artist extends Playlist{
-    /*
-    private int age;
-    private String realName;
-
-    public Artist() {
-        super();
-        realName = "";
-        age = 0;
-    }
-
-    public Artist(int age, String realName, String artistName) {
-        super();
-        this.age = age;
-        this.realName = realName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    @Override
-    public String toString() {
-        return "Artist Details: " + "\n" +
-                "Artist: " + getArtistName() + "\n" +
-                "Real Name: " + getRealName() + "\n" +
-                "Age: " + getAge();
-    }*/
-
+public class Artist {
     private String artistName;
     private ArrayList<Song> songs;
+    private Connection conn;
+
+    //constructor
+    public Artist(Connection conn) {
+        this.conn = conn;
+    }
 
     //getter setter
     public String getArtistName() {
@@ -61,5 +29,33 @@ public class Artist extends Playlist{
 
     public void setSongs(ArrayList<Song> songs) {
         this.songs = songs;
+    }
+
+    //methods
+    public void addArtist(String artistName) {
+        try
+        {
+            //Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
+            String sql = "INSERT INTO Artist(Name) VALUES (?)";
+
+            //create prepared statement with sql this allows us to set params
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            // Set params values
+            pstmt.setString(1, artistName);
+
+            //execute prepared statement
+            int rowsAffected = pstmt.executeUpdate();
+
+            if(rowsAffected == 1) {     //check if rows affected
+                System.out.println("\n " + artistName + " added to database successfully");
+            }else{
+                System.out.println("\n Error: Failed to add " + artistName + "to the database");
+            }
+
+        }catch (Exception e)
+        {
+            System.out.println("\nError " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
