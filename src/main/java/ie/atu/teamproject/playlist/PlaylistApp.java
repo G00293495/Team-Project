@@ -73,10 +73,6 @@ public class PlaylistApp {
 
                 //Add feature
                 case 2 -> {
-                    //prompt user for artist name, real name & age.
-                    //PlaylistMethods playlistMethods = new PlaylistMethods();
-                    //boolean isAdded = playlistMethods.addArtist();
-
                     System.out.print("\nEnter the name of the artist you want to add: ");
                     String artistName = scanner.nextLine();
                     artist.setArtistName(artistName);
@@ -85,8 +81,10 @@ public class PlaylistApp {
 
                 //Remove feature
                 case 3 -> {
-                    PlaylistMethods playlistMethods = new PlaylistMethods();
-                    //boolean isRemoved = playlistMethods.removeArtist();
+                    System.out.print("\nEnter the name of the artist you want to remove: ");
+                    String artistName = scanner.nextLine();
+                    artist.setArtistName(artistName);
+                    artist.removeMedia();
                 }
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-3");
