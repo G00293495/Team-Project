@@ -89,7 +89,7 @@ public class PlaylistApp {
                 case 4 -> {
                     System.out.println("Do you want to add SongId, SongName, Genre, ArtistId");
                     Scanner scanner2 = new Scanner(System.in);
-                    int SongID = scanner2.nextInt();
+                    int SongID = scanner2.nextInt() ;
                     scanner2.nextLine();
                     String SongName = scanner2.nextLine();
                     String Genre = scanner2.nextLine();
