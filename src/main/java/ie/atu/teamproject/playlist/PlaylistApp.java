@@ -86,6 +86,20 @@ public class PlaylistApp {
                     artist.setArtistName(artistName);
                     artist.removeMedia();
                 }
+                case 4 -> {
+                    System.out.println("Do you want to add SongId, SongName, Genre, ArtistId");
+                    Scanner scanner2 = new Scanner(System.in);
+                    int SongID = scanner2.nextInt();
+                    scanner2.nextLine();
+                    String SongName = scanner2.nextLine();
+                    String Genre = scanner2.nextLine();
+                    int ArtistID = scanner2.nextInt();
+
+                    addSong(conn,SongID,SongName,Genre,ArtistID);
+
+
+
+                }
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-3");
             }
@@ -97,4 +111,22 @@ public class PlaylistApp {
         System.out.println("\nGoodbye!");
 
     }
+    private static void addSong(Connection conn, int SongID, String SongName, String Genre, int ArtistID){
+
+        try {
+            Statement stmt = conn.createStatement();
+
+            String songSql = "INSERT INTO Song (SongID, SongName, Genre, ArtistID) VALUES (" + SongID + ", " + SongName + "," + Genre + "," + ArtistID +" )";
+            stmt.executeUpdate(songSql);
+            System.out.println("Data inserted successfully into MySQL.");
+
+            stmt.close();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+
 }
