@@ -35,4 +35,23 @@ public class ArtistTest {
             assertEquals(testName,name);
         }
     }
+
+    @Test
+    public void testRemoveMedia() throws Exception{
+        String testName = "testArtist";
+        Artist testArtist = new Artist(conn);
+
+        testArtist.setArtistName(testName);
+
+        testArtist.removeMedia();
+
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Artist WHERE artistName = '" + testName + "'");
+
+        while (resultSet.next())
+        {
+            String name = resultSet.getString("artistName");
+            assertEquals(testName,name);
+        }
+    }
 }
