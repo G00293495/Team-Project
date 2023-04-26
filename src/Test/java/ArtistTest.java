@@ -22,12 +22,12 @@ public class ArtistTest {
         String testName = "testArtist";
         Artist testArtist = new Artist(conn);
 
-        testArtist.addMedia();
-
         testArtist.setArtistName(testName);
 
+        testArtist.addMedia();
+
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Artist WHERE artistName = testArtist");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Artist WHERE artistName = '" + testName + "'");
 
         while (resultSet.next())
         {
