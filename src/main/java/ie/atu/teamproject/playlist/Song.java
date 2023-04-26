@@ -1,39 +1,29 @@
 package ie.atu.teamproject.playlist;
 
-public class Song extends Playlist {
-    /*
-    private String genre;
+import java.sql.Connection;
 
-    public Song() {
-        super();
-        genre = "";
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    @Override
-    public String toString() {
-        //return super.toString() + "Genre: " + genre;
-        return "Song Details: " + "\n" +
-                "Genre: " + getGenre() + "\n";
-    }*/
+public class Song {
     private String songName;
-    private String artistName;
     private String genre;
+    private Connection conn;
 
     //constructor
 
-    public Song(String songName, String artistName, String genre) {
+    public Song(String songName, String genre, Connection conn) {
         this.songName = songName;
         this.genre = genre;
+        this.conn = conn;
     }
 
     //getter setter
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
 
     public String getSongName() {
         return songName;
@@ -49,5 +39,8 @@ public class Song extends Playlist {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    //methods
+
 }
 
