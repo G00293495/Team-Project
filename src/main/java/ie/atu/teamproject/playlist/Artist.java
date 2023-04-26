@@ -38,7 +38,7 @@ public class Artist implements Media{
         try
         {
             //Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
-            String sql = "INSERT INTO Artist(Name) VALUES (?)";
+            String sql = "INSERT INTO Artist(artistName) VALUES (?)";
 
             //create prepared statement with sql this allows us to set params
             PreparedStatement pstmt = conn.prepareStatement(sql);
