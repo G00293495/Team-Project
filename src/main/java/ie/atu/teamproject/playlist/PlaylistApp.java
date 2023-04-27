@@ -29,12 +29,15 @@ public class PlaylistApp {
             System.out.println("1. Search for a song or artist");
             System.out.println("2. Add an artist to the playlist");
             System.out.println("3. Remove an artist from the playlist");
-            System.out.print("\nEnter your choice (1-3): ");
+            System.out.println("4. Add song to the playlist");
+            System.out.println("5. Remove song to the playlist");
+            System.out.print("\nEnter your choice (1-5): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
 
             ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn);
+            ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song(conn);
 
             switch (option) {
                 //Search Feature
@@ -87,21 +90,20 @@ public class PlaylistApp {
                     artist.removeMedia();
                 }
                 case 4 -> {
-                    System.out.println("Do you want to add SongId, SongName, Genre, ArtistId");
-                    Scanner scanner2 = new Scanner(System.in);
-                    int SongID = scanner2.nextInt() ;
-                    scanner2.nextLine();
-                    String SongName = scanner2.nextLine();
-                    String Genre = scanner2.nextLine();
-                    int ArtistID = scanner2.nextInt();
-
-                    addSong(conn,SongID,SongName,Genre,ArtistID);
-
-
-
+                    System.out.print("\nWhat song do you want to add song: ");
+                    String songName = scanner.nextLine();
+                    song.setSongName(songName);
+                    song.addMedia();
+                }
+                case 5 -> {
+                    System.out.print("\nWhat song do you want to remove song: ");
+                    String songName = scanner.nextLine();
+                    song.setSongName(songName);
+                    song.removeMedia();
                 }
 
-                default -> System.out.println("\nInvalid option selected. Please choose 1-3");
+
+                default -> System.out.println("\nInvalid option selected. Please choose 1-5");
             }
 
             System.out.print("\nDo you want to continue? (y/n): ");
@@ -109,22 +111,6 @@ public class PlaylistApp {
         }
 
         System.out.println("\nGoodbye!");
-
-    }
-    private static void addSong(Connection conn, int SongID, String SongName, String Genre, int ArtistID){
-
-        try {
-            Statement stmt = conn.createStatement();
-
-            String songSql = "INSERT INTO Song (SongID, SongName, Genre, ArtistID) VALUES (" + SongID + ", " + SongName + "," + Genre + "," + ArtistID +" )";
-            stmt.executeUpdate(songSql);
-            System.out.println("Data inserted successfully into MySQL.");
-
-            stmt.close();
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
 
     }
 
