@@ -15,7 +15,7 @@ public class PlaylistApp {
         }
         catch (SQLException e)
         {
-            System.out.println("Connection Failed\n");
+            System.out.println("Connection Failed \n");
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -31,7 +31,8 @@ public class PlaylistApp {
             System.out.println("3. Remove an artist from the playlist");
             System.out.println("4. Add song to the playlist");
             System.out.println("5. Remove song to the playlist");
-            System.out.print("\nEnter your choice (1-5): ");
+            System.out.println("6. Search for song in playlist");
+            System.out.print("\nEnter your choice (1-6): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -100,6 +101,12 @@ public class PlaylistApp {
                     String songName = scanner.nextLine();
                     song.setSongName(songName);
                     song.removeMedia();
+                }
+                case 6 -> {
+                    System.out.print("\nSearch for a song in playlist: ");
+                    String songName = scanner.nextLine();
+                    song.setSongName(songName);
+                    song.searchMedia();
                 }
 
 

@@ -88,4 +88,9 @@ public class Artist implements Media{
 
     }
 
+    @Override
+    public void searchMedia() {
+
+    }
+
 }
