@@ -3,6 +3,7 @@ package ie.atu.teamproject.playlist;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Song implements Media{
     private String songName;
@@ -104,7 +105,7 @@ public class Song implements Media{
 
         }
         catch (Exception ex){
-            System.out.println("\nError" + ex.getMessage());
+            System.out.println("\nError" +  ex.getMessage());
             ex.printStackTrace();
         }
 
@@ -115,8 +116,34 @@ public class Song implements Media{
 
 
     }
+    @Override
+    public void searchMedia(){
+        try {
+            String sql = "SELECT * FROM Song WHERE songName = ?";
+            PreparedStatement psmt = conn.prepareStatement(sql);
+
+            psmt.setString(1,songName);
+            ResultSet search = psmt.executeQuery();
+
+            if(search.next()) {
+                System.out.println("\n" + songName + " Found in playlist ");
+            }
+            else {
+                System.out.println("\n Error: Failed to find " + songName + " in the database");
+            }
 
 
 
+
+        }
+        catch (Exception ex) {
+            System.out.println("\nError" + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+    }
 }
+
+
+
 
