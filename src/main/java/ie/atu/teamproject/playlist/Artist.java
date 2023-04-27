@@ -85,5 +85,7 @@ public class Artist implements Media{
             System.out.println("\nError " + e.getMessage());
             e.printStackTrace();
         }
+
     }
+
 }
