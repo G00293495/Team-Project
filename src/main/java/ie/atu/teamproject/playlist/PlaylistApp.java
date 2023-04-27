@@ -30,7 +30,8 @@ public class PlaylistApp {
             System.out.println("2. Add an artist to the playlist");
             System.out.println("3. Remove an artist from the playlist");
             System.out.println("4. Add song to the playlist");
-            System.out.print("\nEnter your choice (1-4): ");
+            System.out.println("5. Remove song to the playlist");
+            System.out.print("\nEnter your choice (1-5): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -94,8 +95,15 @@ public class PlaylistApp {
                     song.setSongName(songName);
                     song.addMedia();
                 }
+                case 5 -> {
+                    System.out.print("\nWhat song do you want to remove song: ");
+                    String songName = scanner.nextLine();
+                    song.setSongName(songName);
+                    song.removeMedia();
+                }
 
-                default -> System.out.println("\nInvalid option selected. Please choose 1-4");
+
+                default -> System.out.println("\nInvalid option selected. Please choose 1-5");
             }
 
             System.out.print("\nDo you want to continue? (y/n): ");

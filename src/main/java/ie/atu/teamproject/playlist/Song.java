@@ -85,6 +85,31 @@ public class Song implements Media{
 
     @Override
     public void removeMedia() {
+        try {
+
+            String sql = " DELETE FROM Song WHERE songName = ?";
+
+            PreparedStatement psmt = conn.prepareStatement(sql);
+
+            psmt.setString(1,songName);
+
+            int rowsAffected = psmt.executeUpdate();
+
+            if(rowsAffected == 1) {
+                System.out.println("\n" + songName + "removed from database succesfully");
+            }
+            else {
+                System.out.println("\n Error: Failed to remove" + songName + "to the database");
+            }
+
+        }
+        catch (Exception ex){
+            System.out.println("\nError" + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+
+
 
 
 
