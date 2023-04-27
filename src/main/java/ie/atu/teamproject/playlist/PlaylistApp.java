@@ -89,12 +89,16 @@ public class PlaylistApp {
                     artist.setArtistName(artistName);
                     artist.removeMedia();
                 }
+
                 case 4 -> {
-                    System.out.print("\nWhat song do you want to add song: ");
+                    System.out.print("Enter song name: ");
                     String songName = scanner.nextLine();
+                    System.out.print("Enter artist name: ");
+                    String artistName = scanner.nextLine();
                     song.setSongName(songName);
                     song.addMedia();
                 }
+
                 case 5 -> {
                     System.out.print("\nWhat song do you want to remove song: ");
                     String songName = scanner.nextLine();
@@ -102,10 +106,8 @@ public class PlaylistApp {
                     song.removeMedia();
                 }
 
-
                 default -> System.out.println("\nInvalid option selected. Please choose 1-5");
             }
-
             System.out.print("\nDo you want to continue? (y/n): ");
             choice = scanner.nextLine();
         }

@@ -24,13 +24,7 @@ public class Artist implements Media{
         this.artistName = artistName;
     }
 
-    public ArrayList<Song> getSongs() {
-        return songs;
-    }
 
-    public void setSongs(ArrayList<Song> songs) {
-        this.songs = songs;
-    }
 
     //methods
     @Override
