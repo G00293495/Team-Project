@@ -40,6 +40,8 @@ public class Song implements Media {
     }
     //methods
 
+    //@Sean I referenced this from here
+    //https://stackoverflow.com/questions/1376218/is-there-a-way-to-retrieve-the-autoincrement-id-from-a-prepared-statement
     @Override
         public void addMedia() {
         String sqlSong = "INSERT INTO Song(songName) VALUES (?)";
@@ -59,7 +61,7 @@ public class Song implements Media {
             }
 
             //insert artist into Artist Table
-            if (artistName == null) {
+            if (artistName == null) {   //artist must be null
                 System.out.println("\nError: artistName cannot be null");
                 return;
             }
@@ -72,7 +74,7 @@ public class Song implements Media {
             //get generated keys
             int artistID = -1;
             {
-                ResultSet rs = statement.getGeneratedKeys();
+                ResultSet rs = artistInsertStmt.getGeneratedKeys();
                 rs.next();
                 artistID = rs.getInt(1);
             }
@@ -98,7 +100,7 @@ public class Song implements Media {
                 return;
             }
 
-            // Add the song to the songList ArrayList
+            //Add the song to the songList ArrayList
             Song newSong = new Song(songName, conn, artistName);
             songList.add(newSong);
             System.out.println("\n" + songName + " added to song list successfully");

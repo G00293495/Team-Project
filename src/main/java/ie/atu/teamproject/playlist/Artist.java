@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Artist implements Media{
     private String artistName;
-    private ArrayList<Song> songs;
     private Connection conn;
 
     //constructor

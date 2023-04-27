@@ -95,6 +95,11 @@ public class PlaylistApp {
                     String songName = scanner.nextLine();
                     System.out.print("Enter artist name: ");
                     String artistName = scanner.nextLine();
+                    if (artistName == null) {
+                        System.out.println("\nError: artistName cannot be null");
+                        return;
+                    }
+                    artist.setArtistName(artistName);
                     song.setSongName(songName);
                     song.addMedia();
                 }
