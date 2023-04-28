@@ -37,8 +37,9 @@ public class PlaylistApp {
             scanner.nextLine();
 
             //connection established
-            ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn);
-            ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song(conn);
+            ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn, "artistName");
+            ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song("songName", conn, "artistName");
+
 
             switch (option) {
                 //Artist Search Feature
@@ -101,10 +102,6 @@ public class PlaylistApp {
                     String songName = scanner.nextLine();
                     System.out.print("Enter artist name: ");
                     String artistName = scanner.nextLine();
-                    if (artistName.isBlank()) {
-                        System.out.println("\nError: artistName cannot be null");
-                        return;
-                    }
                     artist.setArtistName(artistName);
                     song.setSongName(songName);
                     song.addMedia();

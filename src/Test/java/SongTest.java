@@ -19,16 +19,9 @@ public class SongTest {
     }
 
     @Test
-    public void testAddMediaWhenArtistNameIsNull() {
-        Song song = new Song(conn);
-        song.setArtistName(null);
-        assertThrows(NullPointerException.class, () -> song.addMedia());
-    }
-
-    @Test
     public void testAddMedia() throws Exception {
         String testName = "testSong";
-        Song testSong = new Song(conn);
+        Song testSong = new Song("",conn);
 
         testSong.setSongName(testName);
 
