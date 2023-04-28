@@ -50,6 +50,7 @@ public class PlaylistApp {
                     try {
                         // Connect to the database
                         Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
+
                         // Check if artist exists
                         String artistSQL = "SELECT * FROM Artist WHERE artistName = ?";
                         PreparedStatement artistStmt = conn.prepareStatement(artistSQL);
@@ -57,28 +58,27 @@ public class PlaylistApp {
                         ResultSet artistRS = artistStmt.executeQuery();
 
                         if (artistRS.next()) {
-                            // Print artist name and retrieve all songs for the artist
+                            // Print artist and songs for the artist
                             int artistID = artistRS.getInt("artistID");
-                            String songsSQL = "SELECT * FROM ArtistSong JOIN Song ON ArtistSong.songID = Song.songID WHERE ArtistSong.artistID = ?";
+                            String songsSQL = "SELECT * FROM Song WHERE artistID = ?";
                             PreparedStatement songsStmt = conn.prepareStatement(songsSQL);
                             songsStmt.setInt(1, artistID);
                             ResultSet songsRS = songsStmt.executeQuery();
 
                             System.out.println("Artist: " + artistName);
-                            while (songsRS.next()) {
+                            //retrieves song
+                            while(songsRS.next()) {
                                 String songTitle = songsRS.getString("songName");
                                 System.out.println("Song Title: " + songTitle);
                             }
                         } else {
                             System.out.println("Artist not found in the database");
                         }
-
                         conn.close();
                     } catch (SQLException e) {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
                     }
-
                 }
 
                 //Add feature
