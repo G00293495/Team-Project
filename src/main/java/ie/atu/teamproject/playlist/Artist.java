@@ -3,7 +3,7 @@ package ie.atu.teamproject.playlist;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class Artist implements Media{
     private String artistName;
@@ -13,6 +13,7 @@ public class Artist implements Media{
     public Artist(Connection conn) {
         this.conn = conn;
     }
+
 
     //getter setter
     public String getArtistName() {

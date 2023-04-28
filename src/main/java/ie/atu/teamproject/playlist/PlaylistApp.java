@@ -36,42 +36,48 @@ public class PlaylistApp {
             int option = scanner.nextInt();
             scanner.nextLine();
 
+            //connection established
             ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn);
             ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song(conn);
 
             switch (option) {
-                //Search Feature
+                //Artist Search Feature
                 case 1 -> {
                     System.out.print("\nEnter the name of an Artist: ");
-                    String songOrArtist = scanner.nextLine();
+                    String artistName = scanner.nextLine();
 
-                    //Artist Search
                     try {
-                        //Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
-                        Statement stmt = conn.createStatement();
+                        // Connect to the database
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
+                        // Check if artist exists
+                        String artistSQL = "SELECT * FROM Artist WHERE artistName = ?";
+                        PreparedStatement artistStmt = conn.prepareStatement(artistSQL);
+                        artistStmt.setString(1, artistName);
+                        ResultSet artistRS = artistStmt.executeQuery();
 
-                        String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
-                        ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
-                        if (artistRS.next()) { //check if artist is in database
-                            String artistName = artistRS.getString("Name"); //searches name column
+                        if (artistRS.next()) {
+                            // Print artist name and retrieve all songs for the artist
+                            int artistID = artistRS.getInt("artistID");
+                            String songsSQL = "SELECT * FROM ArtistSong JOIN Song ON ArtistSong.songID = Song.songID WHERE ArtistSong.artistID = ?";
+                            PreparedStatement songsStmt = conn.prepareStatement(songsSQL);
+                            songsStmt.setInt(1, artistID);
+                            ResultSet songsRS = songsStmt.executeQuery();
 
-                            artist.setArtistName(artistName);
-                            System.out.println("Artist: " + "\n" + artistName);
-
-                            //prompt user about artist info
-                            System.out.print("\nDo you want to learn more about the artist? (y/n): ");
-                            String userChoice = scanner.nextLine();
-                            if (userChoice.equalsIgnoreCase("y")) {
-                                System.out.println(artist);
+                            System.out.println("Artist: " + artistName);
+                            while (songsRS.next()) {
+                                String songTitle = songsRS.getString("songName");
+                                System.out.println("Song Title: " + songTitle);
                             }
-
                         } else {
-                            System.out.println("Song/Artist not found in the database");
+                            System.out.println("Artist not found in the database");
                         }
-                    } catch (Exception e) {
+
+                        conn.close();
+                    } catch (SQLException e) {
                         System.out.println("\nError " + e.getMessage());
                         e.printStackTrace();
                     }
+
                 }
 
                 //Add feature
@@ -95,7 +101,7 @@ public class PlaylistApp {
                     String songName = scanner.nextLine();
                     System.out.print("Enter artist name: ");
                     String artistName = scanner.nextLine();
-                    if (artistName == null) {
+                    if (artistName.isBlank()) {
                         System.out.println("\nError: artistName cannot be null");
                         return;
                     }

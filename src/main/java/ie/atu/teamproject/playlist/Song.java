@@ -1,11 +1,10 @@
 package ie.atu.teamproject.playlist;
 
-import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class Song implements Media {
+
     private String songName;
     private Connection conn;
     private String artistName;
@@ -14,9 +13,10 @@ public class Song implements Media {
     //constructor
     public Song(String songName, Connection conn,String artistName) {
         this.songName = songName;
-        this.artistName = artistName;
         this.conn = conn;
+        this.artistName = artistName;
     }
+
 
     public Song(Connection conn) {
         this.conn = conn;
@@ -38,12 +38,18 @@ public class Song implements Media {
     public void setSongName(String songName) {
         this.songName = songName;
     }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
     //methods
 
     //@Sean I referenced this from here
     //https://stackoverflow.com/questions/1376218/is-there-a-way-to-retrieve-the-autoincrement-id-from-a-prepared-statement
     @Override
         public void addMedia() {
+
         String sqlSong = "INSERT INTO Song(songName) VALUES (?)";
         try(PreparedStatement statement = conn.prepareStatement(sqlSong,Statement.RETURN_GENERATED_KEYS))
         {
@@ -58,6 +64,7 @@ public class Song implements Media {
                 ResultSet rs = statement.getGeneratedKeys();
                 rs.next();
                 songID = rs.getInt(1);
+                System.out.println("\n" + songName + " added to database successfully");
             }
 
             //insert artist into Artist Table
@@ -72,7 +79,7 @@ public class Song implements Media {
             affectedRows = artistInsertStmt.executeUpdate();
 
             //get generated keys
-            int artistID = -1;
+            int artistID;
             {
                 ResultSet rs = artistInsertStmt.getGeneratedKeys();
                 rs.next();
@@ -110,6 +117,7 @@ public class Song implements Media {
             System.out.println("\nError: " + ex.getMessage());
             ex.printStackTrace();
         }
+
     }
 
     /*
@@ -209,5 +217,7 @@ public class Song implements Media {
             System.out.println("\nError" + ex.getMessage());
             ex.printStackTrace();
         }*/
+
 }
+
 
