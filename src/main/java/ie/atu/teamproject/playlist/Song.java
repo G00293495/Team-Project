@@ -73,9 +73,11 @@ public class Song implements Media {
             int songRowsAffected = statement.executeUpdate();
 
             if (songRowsAffected == 1) {
-                System.out.println("\n" + songName + " by " + artistName + " added to database successfully");
+                System.out.println("\n" + songName + " by " + artistName +
+                        " added to database successfully");
             } else {
-                System.out.println("\nError: Failed to add " + songName + " to the database");
+                System.out.println("\nError: Failed to add " + songName +
+                        " to the database");
             }
         } catch (Exception e) {
             System.out.println("\nError " + e.getMessage());

@@ -2,7 +2,7 @@ package ie.atu.teamproject.playlist;
 
 import java.sql.*;
 
-public class Artist implements Media{
+public class Artist implements Media {
     private String artistName;
     private int artistID;
     private Connection conn;
@@ -33,15 +33,13 @@ public class Artist implements Media{
 
             }
             // artist doesn't exist, add them to the database
-            else
-            {
+            else {
                 sql = "INSERT INTO Artist (artistName) VALUES (?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 pstmt.setString(1, artistName);
                 pstmt.executeUpdate();
                 ResultSet generatedKeys = pstmt.getGeneratedKeys();
-                if (generatedKeys.next())
-                {
+                if (generatedKeys.next()) {
                     artistID = generatedKeys.getInt(1);
                     System.out.println(artistName + " added to database with ID " + artistID);
                 }
@@ -54,21 +52,29 @@ public class Artist implements Media{
     }
 
     @Override
-    public void removeMedia(){
+    public void removeMedia() {
         try {
-            String sql = "DELETE FROM Artist WHERE artistName = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, artistName);
-            int rowsAffected = pstmt.executeUpdate();
+            // Delete all songs with the specified artist name
+            String songSql = "DELETE Song FROM Song JOIN Artist ON Song.artistId " +
+                    "= Artist.artistId WHERE Artist.artistName = ?";
+            PreparedStatement deleteSongsStmt = conn.prepareStatement(songSql);
+            deleteSongsStmt.setString(1, artistName);
+            int songsRowsAffected = deleteSongsStmt.executeUpdate();
 
-            if (rowsAffected == 1) {
-                System.out.println("Successfully removed " + artistName + " from database");
+            // Delete the artist
+            String artistSQL = "DELETE FROM Artist WHERE artistName = ?";
+            PreparedStatement deleteArtistStmt = conn.prepareStatement(artistSQL);
+            deleteArtistStmt.setString(1, artistName);
+            int artistRowsAffected = deleteArtistStmt.executeUpdate();
 
+            if (artistRowsAffected == 1) {
+                System.out.println("Successfully removed " + artistName + " and " + songsRowsAffected +
+                        " songs from database");
             } else {
                 System.out.println("\nFailed to remove " + artistName + " from the database");
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("\nError " + e.getMessage());
             e.printStackTrace();
         }
