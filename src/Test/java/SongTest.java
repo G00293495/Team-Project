@@ -21,7 +21,7 @@ public class SongTest {
     @Test
     public void testAddMedia() throws Exception {
         String testName = "testSong";
-        Song testSong = new Song("",conn);
+        Song testSong = new Song(conn);
 
         testSong.setSongName(testName);
 

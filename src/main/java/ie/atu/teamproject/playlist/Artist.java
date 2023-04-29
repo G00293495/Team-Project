@@ -1,9 +1,6 @@
 package ie.atu.teamproject.playlist;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.util.Objects;
+import java.sql.*;
 
 public class Artist implements Media{
     private String artistName;
@@ -16,16 +13,7 @@ public class Artist implements Media{
         this.artistName = artistName;
     }
 
-
     //getter setter
-    public String getArtistName() {
-        return artistName;
-    }
-
-    public int getArtistID() {
-        return artistID;
-    }
-
     public void setArtistName(String artistName) {
         this.artistName = artistName;
     }
@@ -34,40 +22,43 @@ public class Artist implements Media{
     @Override
     public void addMedia() {
         try {
-            String sql = "INSERT INTO Artist(artistName) VALUES (?)";
-
-            //create prepared statement with sql this allows us to set params
+            String sql = "SELECT artistID FROM Artist WHERE artistName = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            // Set params values
             pstmt.setString(1, artistName);
+            ResultSet rs = pstmt.executeQuery();
+            // artist already exists in database
+            if (rs.next()) {
+                artistID = rs.getInt("artistID");
+                System.out.println(artistName + " already exists in the database " + artistID);
 
-            //execute prepared statement
-            int rowsAffected = pstmt.executeUpdate();
-
-            if (rowsAffected == 1) {     //check if rows affected
-                System.out.println("\n" + artistName + " added to database successfully");
-            } else {
-                System.out.println("\nError: Failed to add " + artistName + " to the database");
+            }
+            // artist doesn't exist, add them to the database
+            else
+            {
+                sql = "INSERT INTO Artist (artistName) VALUES (?)";
+                pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                pstmt.setString(1, artistName);
+                pstmt.executeUpdate();
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next())
+                {
+                    artistID = generatedKeys.getInt(1);
+                    System.out.println(artistName + " added to database with ID " + artistID);
+                }
             }
 
-        } catch (Exception e) {
-            System.out.println("\nError " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-
     @Override
     public void removeMedia(){
         try {
-            Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
             String sql = "DELETE FROM Artist WHERE artistName = ?";
-
-            //create prepared statement with sql this allows us to set params
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            // Set params values
             pstmt.setString(1, artistName);
-            //execute prepared statement
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected == 1) {
@@ -81,7 +72,5 @@ public class Artist implements Media{
             System.out.println("\nError " + e.getMessage());
             e.printStackTrace();
         }
-
     }
-
 }

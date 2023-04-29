@@ -20,7 +20,7 @@ public class ArtistTest {
     @Test
     public void testAddMedia() throws Exception {
         String testName = "testArtist";
-        Artist testArtist = new Artist(conn);
+        Artist testArtist = new Artist(conn,"");
 
         testArtist.setArtistName(testName);
 
@@ -39,7 +39,7 @@ public class ArtistTest {
     @Test
     public void testRemoveMedia() throws Exception{
         String testName = "testArtist";
-        Artist testArtist = new Artist(conn);
+        Artist testArtist = new Artist(conn,"");
 
         testArtist.setArtistName(testName);
 

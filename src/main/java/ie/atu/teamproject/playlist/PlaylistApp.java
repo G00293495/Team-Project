@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class PlaylistApp {
-    private static final Playlist playlist = new Playlist();
     static Connection conn;
 
     public static void main(String[] args) {
@@ -38,8 +37,7 @@ public class PlaylistApp {
 
             //connection established
             ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn, "artistName");
-            ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song("songName", conn, "artistName");
-
+            ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song(conn);
 
             switch (option) {
                 //Artist Search Feature
@@ -102,7 +100,7 @@ public class PlaylistApp {
                     String songName = scanner.nextLine();
                     System.out.print("Enter artist name: ");
                     String artistName = scanner.nextLine();
-                    artist.setArtistName(artistName);
+                    song.setArtistName(artistName);
                     song.setSongName(songName);
                     song.addMedia();
                 }
