@@ -13,14 +13,6 @@ public class Song implements Media {
     }
 
     //getter setter
-    public Connection getConn() {
-        return conn;
-    }
-
-    public void setConn(Connection conn) {
-        this.conn = conn;
-    }
-
     public void setSongName(String songName) {
         this.songName = songName;
     }
@@ -57,7 +49,7 @@ public class Song implements Media {
                 if (generatedKeys.next()) {
                     artistId = generatedKeys.getInt(1);
                 } else {
-                    throw new SQLException("Creating artist failed, no ID obtained.");
+                    throw new SQLException("Creating artist failed, artistID not obtained.");
                 }
             }
 
@@ -69,7 +61,7 @@ public class Song implements Media {
             statement.setString(1, songName);
             // Set the second parameter of the prepared statement to the value of the artistId variable
             statement.setInt(2, artistId);
-            // Execute INSERT statement and retrieve the number of rows affected
+            // Execute statement and retrieve the number of rows affected
             int songRowsAffected = statement.executeUpdate();
 
             if (songRowsAffected == 1) {
@@ -87,6 +79,5 @@ public class Song implements Media {
 
     @Override
     public void removeMedia() {
-
     }
 }
