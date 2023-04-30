@@ -4,10 +4,9 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class PlaylistApp {
-    private static final Playlist playlist = new Playlist();
     static Connection conn;
-
     public static void main(String[] args) {
+        //establish connection
         try
         {
             conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;","playlistAdmin","password1.");
@@ -15,7 +14,7 @@ public class PlaylistApp {
         }
         catch (SQLException e)
         {
-            System.out.println("Connection Failed \n");
+            System.out.println("Connection Failed\n");
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -26,93 +25,90 @@ public class PlaylistApp {
         while (choice.equalsIgnoreCase("y")) {
 
             System.out.println("Playlist App Menu:");
-            System.out.println("1. Search for a song or artist");
-            System.out.println("2. Add an artist to the playlist");
-            System.out.println("3. Remove an artist from the playlist");
-            System.out.println("4. Add song to the playlist");
-            System.out.println("5. Remove song to the playlist");
-            System.out.println("6. Search for song in playlist");
-            System.out.print("\nEnter your choice (1-6): ");
+            System.out.println("1. Search for a song or artist/band");
+            System.out.println("2. Add a song or artist/band to the playlist");
+            System.out.println("3. Remove a song or artist/band from the playlist");
+            System.out.println("4. Exit");
+            System.out.print("\nEnter your choice (1-5): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
 
+            //connection established
             ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn);
             ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song(conn);
 
             switch (option) {
-                //Search Feature
+                //Artist Search Feature
                 case 1 -> {
-                    System.out.print("\nEnter the name of an Artist: ");
-                    String songOrArtist = scanner.nextLine();
-
-                    //Artist Search
-                    try {
-                        //Connection conn = DriverManager.getConnection("jdbc:sqlserver://playlistserver.database.windows.net:1433;database=PlaylistExplorerDB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", "playlistAdmin", "password1.");
-                        Statement stmt = conn.createStatement();
-
-                        String artistSQL = "SELECT * FROM Artist where Name = '" + songOrArtist + "'"; // Checks database for artist inputted
-                        ResultSet artistRS = stmt.executeQuery(artistSQL); //executes SELECT in sql
-                        if (artistRS.next()) { //check if artist is in database
-                            String artistName = artistRS.getString("Name"); //searches name column
-
-                            artist.setArtistName(artistName);
-                            System.out.println("Artist: " + "\n" + artistName);
-
-                            //prompt user about artist info
-                            System.out.print("\nDo you want to learn more about the artist? (y/n): ");
-                            String userChoice = scanner.nextLine();
-                            if (userChoice.equalsIgnoreCase("y")) {
-                                System.out.println(artist);
-                            }
-
-                        } else {
-                            System.out.println("Song/Artist not found in the database");
-                        }
-                    } catch (Exception e) {
-                        System.out.println("\nError " + e.getMessage());
-                        e.printStackTrace();
-                    }
+                    System.out.print("\nEnter the name of an Artist/Band: ");
+                    String artistName = scanner.nextLine();
+                    artist.setArtistName(artistName);
+                    artist.searchArtist();
                 }
 
                 //Add feature
                 case 2 -> {
-                    System.out.print("\nEnter the name of the artist you want to add: ");
-                    String artistName = scanner.nextLine();
-                    artist.setArtistName(artistName);
-                    artist.addMedia();
+                    System.out.println("\n1. Add a song");
+                    System.out.println("2. Add an artist/band");
+                    System.out.print("\nEnter your choice: ");
+                    int ch = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (ch) {
+                        case 1:
+                            // Add a song
+                            System.out.print("\nEnter the name of the song: ");
+                            String songName = scanner.nextLine();
+                            System.out.print("\nEnter the name of the artist/band: ");
+                            String artistName = scanner.nextLine();
+                            song.setSongName(songName);
+                            song.setArtistName(artistName);
+                            song.addMedia();
+                            break;
+                        case 2:
+                            // Add an artist/band
+                            System.out.print("\nEnter the name of the artist/band: ");
+                            artistName = scanner.nextLine();
+                            artist.setArtistName(artistName);
+                            artist.addMedia();
+                            break;
+                        default:
+                            System.out.println("\nInvalid choice!");
+                    }
                 }
 
                 //Remove feature
                 case 3 -> {
-                    System.out.print("\nEnter the name of the artist you want to remove: ");
-                    String artistName = scanner.nextLine();
-                    artist.setArtistName(artistName);
-                    artist.removeMedia();
+                    System.out.println("\n1. Remove a song");
+                    System.out.println("2. Remove an artist/band");
+                    System.out.print("\nEnter your choice: ");
+                    int ch = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (ch) {
+                        case 1 -> {
+                            //remove song
+                            System.out.print("\nEnter the song you want to remove: ");
+                            String songName = scanner.nextLine();
+                            song.setSongName(songName);
+                            song.removeMedia();
+                        }
+                        case 2 -> {
+                            //remove artist/band
+                            System.out.print("\nEnter the name of the artist/band you want to remove: ");
+                            String artistName = scanner.nextLine();
+                            artist.setArtistName(artistName);
+                            artist.removeMedia();
+                        }
+                    }
                 }
                 case 4 -> {
-                    System.out.print("\nWhat song do you want to add song: ");
-                    String songName = scanner.nextLine();
-                    song.setSongName(songName);
-                    song.addMedia();
+                    System.out.println("\nExiting program");
+                    System.exit(0);
                 }
-                case 5 -> {
-                    System.out.print("\nWhat song do you want to remove song: ");
-                    String songName = scanner.nextLine();
-                    song.setSongName(songName);
-                    song.removeMedia();
-                }
-                case 6 -> {
-                    System.out.print("\nSearch for a song in playlist: ");
-                    String songName = scanner.nextLine();
-                    song.setSongName(songName);
-                    song.searchMedia();
-                }
-
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-5");
-            }
 
+            }
             System.out.print("\nDo you want to continue? (y/n): ");
             choice = scanner.nextLine();
         }

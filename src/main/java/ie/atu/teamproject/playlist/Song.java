@@ -1,149 +1,83 @@
 package ie.atu.teamproject.playlist;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
-public class Song implements Media{
+public class Song implements Media {
     private String songName;
-    private String genre;
     private Connection conn;
     private String artistName;
 
-
-
-
     //constructor
-
-    public Song(String songName, String genre, Connection conn,String artistName) {
-        this.songName = songName;
-        this.genre = genre;
-        this.artistName = artistName;
-        this.conn = conn;
-
-    }
-
     public Song(Connection conn) {
         this.conn = conn;
     }
 
-
     //getter setter
-
-    public Connection getConn() {
-        return conn;
-    }
-
-    public void setConn(Connection conn) {
-        this.conn = conn;
-    }
-
-    public String getSongName() {
-        return songName;
-    }
-
     public void setSongName(String songName) {
         this.songName = songName;
     }
-    public String getGenre() {
-        return genre;
-    }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
     //methods
-
     @Override
     public void addMedia() {
-        try
-        {
-            String sql = "INSERT INTO Song(songName) VALUES (?)";
+        try {
+            //check if the artist exists in the database
+            String artistSQL = "SELECT artistId FROM Artist WHERE artistName = ?";
+            PreparedStatement artistSTMNT = conn.prepareStatement(artistSQL);
+            //Set prepared statement artistName param to the value of the artistName variable.
+            artistSTMNT.setString(1, artistName);
+            ResultSet resultset = artistSTMNT.executeQuery();
 
-            PreparedStatement psmt = conn.prepareStatement(sql);
+            int artistId;
+            if (resultset.next()) {
+                // If artist exists in the DB, get the artistID
+                artistId = resultset.getInt("artistId");
+            } else {
+                //if the artist does not exist, add artist to the database
+                String addArtistSQL = "INSERT INTO Artist (artistName) VALUES (?)";
+                PreparedStatement statement = conn.prepareStatement(addArtistSQL, Statement.RETURN_GENERATED_KEYS);
+                statement.setString(1, artistName);
+                int affectedRows = statement.executeUpdate();
 
-            psmt.setString(1,songName);
-
-            int rowsAffected = psmt.executeUpdate();
-
-            if(rowsAffected == 1) {
-                System.out.println("\n" + songName + "added to database succesfully");
+                //Execute the INSERT statement and retrieve the generated keys
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                // Check if the artist creation was successful and retrieve the generated artistID.
+                if (generatedKeys.next()) {
+                    artistId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating artist failed, artistID not obtained.");
+                }
             }
-            else {
-                System.out.println("\n Error: Failed to add" + songName + "to the database");
+
+            //insert song
+            // Create INSERT statement for adding a song with the inputted song name and artist ID
+            String songSQL = "INSERT INTO Song (songName, artistId) VALUES (?, ?)";
+            PreparedStatement statement = conn.prepareStatement(songSQL);
+            // Set the first parameter of the prepared statement to the value of the songName variable
+            statement.setString(1, songName);
+            // Set the second parameter of the prepared statement to the value of the artistId variable
+            statement.setInt(2, artistId);
+            // Execute statement and retrieve the number of rows affected
+            int songRowsAffected = statement.executeUpdate();
+
+            if (songRowsAffected == 1) {
+                System.out.println("\n" + songName + " by " + artistName +
+                        " added to database successfully");
+            } else {
+                System.out.println("\nError: Failed to add " + songName +
+                        " to the database");
             }
-
+        } catch (Exception e) {
+            System.out.println("\nError " + e.getMessage());
+            e.printStackTrace();
         }
-        catch (Exception ex){
-            System.out.println("\nError" + ex.getMessage());
-            ex.printStackTrace();
-        }
-
-
     }
 
     @Override
     public void removeMedia() {
-        try {
-
-            String sql = " DELETE FROM Song WHERE songName = ?";
-
-            PreparedStatement psmt = conn.prepareStatement(sql);
-
-            psmt.setString(1,songName);
-
-            int rowsAffected = psmt.executeUpdate();
-
-            if(rowsAffected == 1) {
-                System.out.println("\n" + songName + "removed from database succesfully");
-            }
-            else {
-                System.out.println("\n Error: Failed to remove" + songName + "to the database");
-            }
-
-        }
-        catch (Exception ex){
-            System.out.println("\nError" +  ex.getMessage());
-            ex.printStackTrace();
-        }
-
-
-
-
-
-
-
-    }
-    @Override
-    public void searchMedia(){
-        try {
-            String sql = "SELECT * FROM Song WHERE songName = ?";
-            PreparedStatement psmt = conn.prepareStatement(sql);
-
-            psmt.setString(1,songName);
-            ResultSet search = psmt.executeQuery();
-
-            if(search.next()) {
-                System.out.println("\n" + songName + " Found in playlist ");
-            }
-            else {
-                System.out.println("\n Error: Failed to find " + songName + " in the database");
-            }
-
-
-
-
-        }
-        catch (Exception ex) {
-            System.out.println("\nError" + ex.getMessage());
-            ex.printStackTrace();
-        }
-
     }
 }
-
-
-
-

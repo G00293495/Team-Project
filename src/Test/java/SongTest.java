@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SongTest {
     static Connection conn;
