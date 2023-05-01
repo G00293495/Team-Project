@@ -108,9 +108,21 @@ public class PlaylistApp {
                 }
                 //shuffle song
                 case 4 -> {
-                    song.randomSong();
+                    String answer = "y";
+                    Scanner scan = new Scanner(System.in);
+
+
+                    while (answer.equalsIgnoreCase("y")) {
+                        System.out.println("\nDo you want to pick another random song? (y/n)");
+                        answer = scan.nextLine();
+
+                        if (answer.equalsIgnoreCase("y")) {
+                            song.randomSong();
+                        }
+                    }
                 }
 
+                //Exit program
                 case 5 -> {
                     System.out.println("\nExiting program");
                     System.exit(0);
