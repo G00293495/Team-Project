@@ -111,10 +111,7 @@ public class PlaylistApp {
                 case 4 -> {
                     song.randomSong();
                 }
-                //recommend Artist
-                case 5 -> {
-                    artist.recommendArtist();
-                }
+
                 case 6 -> {
                     System.out.println("\nExiting program");
                     System.exit(0);
