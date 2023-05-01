@@ -109,6 +109,10 @@ public class PlaylistApp {
                     song.randomSong();
                 }
                 case 5 -> {
+                    artist.recommendArtist();
+                }
+                case 6 -> {
+                    artist.recommendArtist();
                     System.out.println("\nExiting program");
                     System.exit(0);
                 }
@@ -124,6 +128,8 @@ public class PlaylistApp {
         System.out.println("\nGoodbye!");
 
     }
+
+
 
 
 }
