@@ -81,11 +81,13 @@ public class Song implements Media {
     public void removeMedia() {
     }
 
-    @Override
+
     public void randomSong(){
         try{
 
             String sql = "SELECT TOP 1 songName FROM Song ORDER BY NEWID()";
+            //use of NEWID to fill the table with a default value
+            //used to specify the number of records to return
             PreparedStatement statement = conn.prepareStatement(sql);
 
 
@@ -105,4 +107,7 @@ public class Song implements Media {
         }
 
     }
+
+
+
 }

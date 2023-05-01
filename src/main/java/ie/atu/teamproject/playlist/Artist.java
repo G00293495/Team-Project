@@ -133,8 +133,30 @@ public class Artist implements Media {
         }
     }
 
-    @Override
-    public void randomSong() {
+
+
+    public void recommendArtist(){
+        try{
+
+            String sql = "SELECT TOP 1 artistName FROM Artist ORDER BY NEWID()";
+            //use of NEWID to fill the table with a default value
+            //used to specify the number of records to return
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("artistName");
+                System.out.println("Recomended Artist: " + name);
+
+            }
+
+        }
+        catch (SQLException ex){
+            System.out.println("\nError " + ex.getMessage());
+            ex.printStackTrace();
+
+        }
 
     }
 
