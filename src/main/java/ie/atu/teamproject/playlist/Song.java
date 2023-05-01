@@ -87,7 +87,7 @@ public class Song implements Media {
 
             String sql = "SELECT TOP 1 songName FROM Song ORDER BY NEWID()";
             PreparedStatement statement = conn.prepareStatement(sql);
-            //statement.setInt(1, personId);
+
 
             ResultSet resultSet = statement.executeQuery();
 
