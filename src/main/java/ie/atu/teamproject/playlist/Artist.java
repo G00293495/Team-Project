@@ -66,7 +66,6 @@ public class Artist implements Media {
             }
         } catch (SQLException e) {
             System.out.println("\nError " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -100,7 +99,6 @@ public class Artist implements Media {
 
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -129,7 +127,6 @@ public class Artist implements Media {
 
         } catch (Exception e) {
             System.out.println("\nError " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -154,8 +151,6 @@ public class Artist implements Media {
         }
         catch (SQLException ex){
             System.out.println("\nError " + ex.getMessage());
-            ex.printStackTrace();
-
         }
 
     }
