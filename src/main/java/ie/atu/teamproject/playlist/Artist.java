@@ -139,6 +139,8 @@ public class Artist implements Media {
         try{
 
             String sql = "SELECT TOP 1 artistName FROM Artist ORDER BY NEWID()";
+            //use of NEWID to fill the table with a default value
+            //used to specify the number of records to return
             PreparedStatement statement = conn.prepareStatement(sql);
 
             ResultSet resultSet = statement.executeQuery();
