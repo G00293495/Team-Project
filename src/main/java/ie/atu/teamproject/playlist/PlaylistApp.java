@@ -28,8 +28,9 @@ public class PlaylistApp {
             System.out.println("1. Search for a song or artist/band");
             System.out.println("2. Add a song or artist/band to the playlist");
             System.out.println("3. Remove a song or artist/band from the playlist");
-            System.out.println("4. Exit");
-            System.out.print("\nEnter your choice (1-4): ");
+            System.out.println("4. Shuffle Playlist");
+            System.out.println("5. Exit");
+            System.out.print("\nEnter your choice (1-5): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -102,11 +103,11 @@ public class PlaylistApp {
                         }
                     }
                 }
-                case 5 -> {
+                case 4 -> {
                     System.out.println("\nShuffle Song");
                     song.randomSong();
                 }
-                case 4 -> {
+                case 5 -> {
                     System.out.println("\nExiting program");
                     System.exit(0);
                 }
