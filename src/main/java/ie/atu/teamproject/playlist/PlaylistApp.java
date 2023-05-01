@@ -103,6 +103,7 @@ public class PlaylistApp {
                         }
                     }
                 }
+                //shuffle song
                 case 4 -> {
                     System.out.println("\nShuffle Song");
                     song.randomSong();
