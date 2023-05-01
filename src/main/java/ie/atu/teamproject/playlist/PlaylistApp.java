@@ -108,6 +108,7 @@ public class PlaylistApp {
                 }
                 //shuffle song
                 case 4 -> {
+                    // Scanner for while loop
                     String answer = "y";
                     Scanner scan = new Scanner(System.in);
 
