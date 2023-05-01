@@ -80,4 +80,30 @@ public class Song implements Media {
     @Override
     public void removeMedia() {
     }
+
+    @Override
+    public void randomSong(){
+        try{
+            //int personId = 19; // replace with the ID of the person you want to retrieve the data for
+
+            String sql = "SELECT TOP 1 songName FROM Song ORDER BY NEWID()";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            //statement.setInt(1, personId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("songName");
+                System.out.println("Random Song: " + name);
+
+            }
+
+        }
+        catch (SQLException ex){
+            System.out.println("\nError " + ex.getMessage());
+            ex.printStackTrace();
+
+        }
+
+    }
 }
