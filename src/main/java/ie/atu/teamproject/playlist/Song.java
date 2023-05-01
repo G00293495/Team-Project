@@ -111,7 +111,7 @@ public class Song implements Media {
                //prints out song name along with artist who made the song
                 String songName = resultSet.getString("songName");
                 String artistName = resultSet.getString("artistName");
-                System.out.println("Random song: " + songName + " by " + artistName);
+                System.out.println("\nRandom song: " + songName + " by " + artistName);
 
             }
 

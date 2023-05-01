@@ -108,13 +108,14 @@ public class PlaylistApp {
                 }
                 //shuffle song
                 case 4 -> {
+                    song.randomSong();
                     // Scanner for while loop
                     String answer = "y";
                     Scanner scan = new Scanner(System.in);
 
                     //user prompted if they want to shuffle the playlist again till option other than 'y' is entered
                     while (answer.equalsIgnoreCase("y")) {
-                        System.out.println("\nDo you want to pick another random song? (y/n)");
+                        System.out.print("\nDo you want another random song? (y/n): ");
                         answer = scan.nextLine();
 
                         if (answer.equalsIgnoreCase("y")) {
