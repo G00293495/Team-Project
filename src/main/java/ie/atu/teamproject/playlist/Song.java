@@ -99,18 +99,19 @@ public class Song implements Media {
 
     public void randomSong(){
         try{
-
-            String sql = "SELECT TOP 1 songName FROM Song ORDER BY NEWID()";
+            String sql = "SELECT TOP 1 Song.songName, Artist.artistName " + "FROM Song " + "JOIN Artist ON Song.artistID = Artist.artistID " + "ORDER BY NEWID()";
             //use of NEWID to fill the table with a default value
-            //used to specify the number of records to return
+            //TOP used to specify the number of records to return
             PreparedStatement statement = conn.prepareStatement(sql);
 
 
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String name = resultSet.getString("songName");
-                System.out.println("Random Song: " + name);
+               //prints out song name along with artist who made the song
+                String songName = resultSet.getString("songName");
+                String artistName = resultSet.getString("artistName");
+                System.out.println("Random song: " + songName + " by " + artistName);
 
             }
 

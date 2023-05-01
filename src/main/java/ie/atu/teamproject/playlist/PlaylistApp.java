@@ -29,9 +29,8 @@ public class PlaylistApp {
             System.out.println("2. Add a song or artist/band to the playlist");
             System.out.println("3. Remove a song or artist/band from the playlist");
             System.out.println("4. Shuffle Playlist");
-            System.out.println("5. Recommend Artist");
-            System.out.println("6. Exit");
-            System.out.print("\nEnter your choice (1-6): ");
+            System.out.println("5. Exit");
+            System.out.print("\nEnter your choice (1-5): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -109,19 +108,29 @@ public class PlaylistApp {
                 }
                 //shuffle song
                 case 4 -> {
-                    song.randomSong();
+                    // Scanner for while loop
+                    String answer = "y";
+                    Scanner scan = new Scanner(System.in);
+
+                    //user prompted if they want to shuffle the playlist again till option other than 'y' is entered
+                    while (answer.equalsIgnoreCase("y")) {
+                        System.out.println("\nDo you want to pick another random song? (y/n)");
+                        answer = scan.nextLine();
+
+                        if (answer.equalsIgnoreCase("y")) {
+                            song.randomSong();
+                        }
+                    }
                 }
-                //recommend Artist
+
+                //Exit program
                 case 5 -> {
-                    artist.recommendArtist();
-                }
-                case 6 -> {
                     System.out.println("\nExiting program");
                     System.exit(0);
                 }
 
 
-                default -> System.out.println("\nInvalid option selected. Please choose 1-4");
+                default -> System.out.println("\nInvalid option selected. Please choose 1-5");
 
             }
             System.out.print("\nDo you want to continue? (y/n): ");
