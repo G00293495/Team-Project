@@ -45,6 +45,7 @@ public class PlaylistApp {
                     String artistName = scanner.nextLine();
                     artist.setArtistName(artistName);
                     artist.searchArtist();
+
                 }
 
                 //Add feature
@@ -101,10 +102,15 @@ public class PlaylistApp {
                         }
                     }
                 }
+                case 5 -> {
+                    System.out.println("\nShuffle Song");
+                    song.randomSong();
+                }
                 case 4 -> {
                     System.out.println("\nExiting program");
                     System.exit(0);
                 }
+
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-4");
 
