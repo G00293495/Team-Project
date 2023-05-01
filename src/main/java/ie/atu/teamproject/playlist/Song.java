@@ -105,4 +105,9 @@ public class Song implements Media {
         }
 
     }
+
+    @Override
+    public void recommendArtist() {
+
+    }
 }
