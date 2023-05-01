@@ -73,12 +73,27 @@ public class Song implements Media {
             }
         } catch (Exception e) {
             System.out.println("\nError " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
     @Override
     public void removeMedia() {
+        try {
+            String sql = "DELETE FROM Song WHERE songName = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, songName);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println(songName + " by " + artistName + " has been removed from the database.");
+            } else {
+                System.out.println(songName + " was not found in the database.");
+            }
+
+        }catch (Exception e)
+        {
+            System.out.println("\nError " + e.getMessage());
+        }
     }
 
 
@@ -102,8 +117,6 @@ public class Song implements Media {
         }
         catch (SQLException ex){
             System.out.println("\nError " + ex.getMessage());
-            ex.printStackTrace();
-
         }
 
     }

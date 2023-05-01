@@ -89,10 +89,13 @@ public class PlaylistApp {
                     scanner.nextLine();
                     switch (ch) {
                         case 1 -> {
-                            //remove song
+                            // Remove song
                             System.out.print("\nEnter the song you want to remove: ");
                             String songName = scanner.nextLine();
+                            System.out.print("Enter the artist of the song: ");
+                            String artistName = scanner.nextLine();
                             song.setSongName(songName);
+                            song.setArtistName(artistName);
                             song.removeMedia();
                         }
                         case 2 -> {
