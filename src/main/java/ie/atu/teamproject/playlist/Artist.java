@@ -133,11 +133,8 @@ public class Artist implements Media {
         }
     }
 
-    @Override
-    public void randomSong() {
 
-    }
-    @Override
+
     public void recommendArtist(){
         try{
 
