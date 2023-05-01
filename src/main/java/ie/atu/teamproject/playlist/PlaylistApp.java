@@ -28,8 +28,9 @@ public class PlaylistApp {
             System.out.println("1. Search for a song or artist/band");
             System.out.println("2. Add a song or artist/band to the playlist");
             System.out.println("3. Remove a song or artist/band from the playlist");
-            System.out.println("4. Exit");
-            System.out.print("\nEnter your choice (1-4): ");
+            System.out.println("4. Shuffle Playlist");
+            System.out.println("5. Exit");
+            System.out.print("\nEnter your choice (1-5): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -45,6 +46,7 @@ public class PlaylistApp {
                     String artistName = scanner.nextLine();
                     artist.setArtistName(artistName);
                     artist.searchArtist();
+
                 }
 
                 //Add feature
@@ -102,9 +104,14 @@ public class PlaylistApp {
                     }
                 }
                 case 4 -> {
+                    System.out.println("\nShuffle Song");
+                    song.randomSong();
+                }
+                case 5 -> {
                     System.out.println("\nExiting program");
                     System.exit(0);
                 }
+
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-4");
 

@@ -132,4 +132,10 @@ public class Artist implements Media {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void randomSong() {
+
+    }
+
 }
