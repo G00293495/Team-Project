@@ -31,7 +31,7 @@ public class PlaylistApp {
             System.out.println("4. Shuffle Playlist");
             System.out.println("5. Recommend Artist");
             System.out.println("6. Exit");
-            System.out.print("\nEnter your choice (1-5): ");
+            System.out.print("\nEnter your choice (1-6): ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -108,6 +108,7 @@ public class PlaylistApp {
                 case 4 -> {
                     song.randomSong();
                 }
+                //recommend Artist
                 case 5 -> {
                     artist.recommendArtist();
                 }
