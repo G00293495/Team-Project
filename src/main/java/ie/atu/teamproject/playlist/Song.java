@@ -84,7 +84,6 @@ public class Song implements Media {
     @Override
     public void randomSong(){
         try{
-            //int personId = 19; // replace with the ID of the person you want to retrieve the data for
 
             String sql = "SELECT TOP 1 songName FROM Song ORDER BY NEWID()";
             PreparedStatement statement = conn.prepareStatement(sql);
