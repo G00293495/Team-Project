@@ -35,9 +35,9 @@ public class PlaylistApp {
             int option = scanner.nextInt();
             scanner.nextLine();
 
-            //connection established
-            ie.atu.teamproject.playlist.Artist artist = new ie.atu.teamproject.playlist.Artist(conn);
-            ie.atu.teamproject.playlist.Song song = new ie.atu.teamproject.playlist.Song(conn);
+            //pass connection to classes
+            Artist artist = new Artist(conn);
+            Song song = new Song(conn);
 
             switch (option) {
                 //Artist Search Feature
@@ -129,7 +129,6 @@ public class PlaylistApp {
                     System.out.println("\nExiting program");
                     System.exit(0);
                 }
-
 
                 default -> System.out.println("\nInvalid option selected. Please choose 1-5");
 
