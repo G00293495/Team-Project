@@ -30,11 +30,15 @@ Wrote SQL queries to insert, update, and delete rows in the tables.
 
 ### Java
 
-Created a Java project in Intellij IDE & Maeven.
+Created a Java project in Intellij IDE with Maeven.
 
 Wrote classes for Song, Artist, appMenu to let the user interact with the console & Interface to handle database operations.
 
-Ysed the JDBC Connection and PreparedStatement classes to execute SQL queries on the database, and parse the results.
+Used the JDBC Connection and PreparedStatement classes to execute SQL queries on the database.
+
+> This checks if the artist exists in the Database already
+
+> String artistSQL = "SELECT artistId FROM Artist WHERE artistName = (?)";
 
 We wrote JUnit tests for the database operations to ensure their correctness.
 
