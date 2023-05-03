@@ -10,7 +10,7 @@ This project was developed with Java (JDK 19) Intellij IDE, Junit, JDBC & Azure 
 Reading from Azure SQL, this app allows the user to create, update, and delete artists and songs from their music library, 
 as well as search for and add new artists. 
 
-Wuth Junit tests of the adding and removing of songs and artists.
+With Junit tests of the adding and removing of songs and artists.
 
 ## Setup
 
