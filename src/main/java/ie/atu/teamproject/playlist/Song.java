@@ -105,12 +105,12 @@ public class Song implements Media {
             PreparedStatement statement = conn.prepareStatement(sql);
 
 
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet random = statement.executeQuery();
 
-            while (resultSet.next()) {
+            while (random.next()) {
                //prints out song name along with artist who made the song
-                String songName = resultSet.getString("songName");
-                String artistName = resultSet.getString("artistName");
+                String songName = random.getString("songName");
+                String artistName = random.getString("artistName");
                 System.out.println("\nRandom song: " + songName + " by " + artistName);
 
             }
