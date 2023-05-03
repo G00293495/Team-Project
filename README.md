@@ -11,6 +11,8 @@ Reading from Azure SQL, this app allows the user to create, update, and delete a
 as well as search for and add new artists. 
 
 With Junit tests of the adding and removing of songs and artists.
+Add shuffle features to randomly shuffle the playlist and print out songs added to the dB at random
+
 
 ## Setup
 
