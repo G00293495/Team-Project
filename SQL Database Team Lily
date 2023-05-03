@@ -11,8 +11,17 @@ CREATE TABLE Song (
 
 
 
-String sql = "INSERT INTO Artist(artistName) VALUES 
-This is used to add the artistName to the database.It inserts whatever we input into the artistName column in the AzureSQL database.  
+## INSERT INTO Artist(artistName) VALUES (?)
+## This is used to add the artistName to the database.It inserts whatever we input into the artistName column in the AzureSQL database.  
 
-String sql = "DELETE FROM Artist WHERE artistName = ?";
-This is used to delete Artist From the database.
+## DELETE FROM Artist WHERE artistName = (?)
+## This is used to delete Artist From the database.
+
+## INSERT INTO Song (songName, artistId) VALUES (?, ?)
+## INSERT statement for adding a song with the inputted song name and artist ID
+
+## DELETE FROM Song WHERE songName = (?)
+## remove song
+
+## SELECT TOP 1 Song.songName, Artist.artistName " + "FROM Song " + "JOIN Artist ON Song.artistID = Artist.artistID " + "ORDER BY NEWID() 
+## Random Song: Using NEWID() it creates a brand new speacial identifier. we achieve a random ording of results by using this identification and joins the Artist name and Song name.
