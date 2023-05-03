@@ -8,3 +8,11 @@ CREATE TABLE Song (
     songName VARCHAR(255),
     artistID INT FOREIGN KEY REFERENCES Artist(artistID)
 );
+
+
+
+String sql = "INSERT INTO Artist(artistName) VALUES 
+This is used to add the artistName to the database.It inserts whatever we input into the artistName column in the AzureSQL database.  
+
+String sql = "DELETE FROM Artist WHERE artistName = ?";
+This is used to delete Artist From the database.
