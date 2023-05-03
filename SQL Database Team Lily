@@ -1,0 +1,10 @@
+CREATE TABLE Artist (
+    artistID INT PRIMARY KEY IDENTITY(1,1),
+    artistName VARCHAR(255)
+);
+
+CREATE TABLE Song (
+    songID INT PRIMARY KEY IDENTITY(1,1),
+    songName VARCHAR(255),
+    artistID INT FOREIGN KEY REFERENCES Artist(artistID)
+);
